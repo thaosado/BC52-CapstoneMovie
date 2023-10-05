@@ -5,22 +5,40 @@ import NotFound from "./components/NotFound/NotFound";
 import MainLayout from "./components/layouts/MainLayout/MainLayout";
 import Signin from "./modules/Auth/pages/Signin/Signin";
 import Signup from "./modules/Auth/pages/Signup/Signup";
+import UserProvider from "./contexts/UserContext/UserContext";
+import ProtectedRoute from "./routers/ProtectedRoute/ProtectedRoute";
+import AdminMovie from "./modules/AdminMovie/AdminMovie";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<Home />} />
-          <Route path="movies/:movieId" element={<Details />} />
+    <UserProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<Home />} />
+            <Route path="movies/:movieId" element={<Details />} />
 
-          <Route path="/sign-in" element={<Signin />}/>
-          <Route path="/sign-up" element={<Signup />} />
-        </Route>
+            <Route element={<ProtectedRoute />}>
+              <Route path="tickets/:showtimeId"
+                element={<div>Ticket Page</div>} />
+            </Route>
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+            <Route path="/sign-in" element={<Signin />} />
+            <Route path="/sign-up" element={<Signup />} />
+          </Route>
+
+
+          {/* <Route element={<AdminProtectedRoute />}> */}
+          {/* <Route path="/admin" element={<div>Admin Layout</div>}> */}
+          <Route path="/admin/movies" element={<AdminMovie />} />
+          {/* </Route> */}
+          {/* </Route> */}
+
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </UserProvider >
+
   );
 }
 

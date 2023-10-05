@@ -2,59 +2,91 @@ import { useQuery } from '@tanstack/react-query'
 import React, { useEffect, useState } from 'react'
 import { getMovieShowtimes } from '../../../apis/cinemaAPI';
 import dayjs from 'dayjs';
+import { Box, Container, Grid, Tab, Tabs, Typography } from '@mui/material';
+import style from './ShowtimesStyle.module.scss'
 
-export default function Showtimes({movieId}) {
+export default function Showtimes({ movieId }) {
   const [cinemas, setCinemas] = useState([])
+  const [valueTabs, setValueTabs] = useState(0)
 
-  const {data, isLoading} =
-  useQuery({
-    queryKey: ["movieShowtimes", movieId],
-    queryFn: () => getMovieShowtimes(movieId),
-    enabled: !!movieId,
-  });
+  const { data, isLoading } =
+    useQuery({
+      queryKey: ["movieShowtimes", movieId],
+      queryFn: () => getMovieShowtimes(movieId),
+      enabled: !!movieId,
+    });
 
   const cinemaSystems = data?.heThongRapChieu || [];
-  const handleGetCinemaSystem = (cinemaSystemId)=>{
+  const handleGetCinemaSystem = (cinemaSystemId) => {
     const found = cinemaSystems.find((item) => item.maHeThongRap === cinemaSystemId);
-    
+
     setCinemas(found.cumRapChieu);
   };
 
-  useEffect(()=>{
-    if(cinemaSystems.length > 0){
+  const handleChangeValueTabs = (event, newValue) => {
+    setValueTabs(newValue)
+  }
+
+  useEffect(() => {
+    if (cinemaSystems.length > 0) {
       setCinemas(cinemaSystems[0].cumRapChieu);
     }
   }, [cinemaSystems])
-  
+
   return (
-    <>
-    <div>
-      {cinemaSystems.map((cinemaSystem) => {
-        return (
-          <div key={cinemaSystem.maHeThongRap}>
-            <img src={cinemaSystem.logo} alt="" width={50} height={50}
-            onClick={() => handleGetCinemaSystem(cinemaSystem.maHeThongRap)} />
-          </div>
-        )
-      })}
+    <Grid item xs={12} className={style.jss1}>
+      <Container className={style.jss2}>
+        <Tabs orientation="vertical"
+          value={valueTabs}
+          onChange={handleChangeValueTabs}
+          aria-label="Vertical tabs example"
+          textColor="inherit"
+        >
+          {cinemaSystems.map((cinemaSystem) => {
+            return (
+              <Tab label={<div key={cinemaSystem.maHeThongRap}>
+                <img src={cinemaSystem.logo} alt="" width={50} height={50}
+                  onClick={() => handleGetCinemaSystem(cinemaSystem.maHeThongRap)} />
+              </div>} className={style.jss3} />
 
-      {cinemas.map(cinema => {
-        return (
-          <div>
-            <h3>{cinema.tenCumRap}</h3>
+            )
+          })}
 
-            {cinema.lichChieuPhim.map((showtime) => {
-              const time = dayjs(showtime.ngayChieuGioChieu).format(
-                "DD-MM-YYYY ~ HH:mm"
-              )
+        </Tabs>
 
-              return <button>{time}</button>
-            })}
-          </div>
-        )
-      })}
-    </div>
-    </>
-    
+        <div className={style.jss4}>
+          {cinemas.map(cinema => {
+            return (
+              <Grid container style={{ padding: '8px 8px 0 8px' }} >
+                <Grid item xs={12} style={{ padding: '8px 0' }}>
+                  <h3 style={{ color: 'rgb(139, 195, 74)', fontSize: '16px' }}>{cinema.tenCumRap}</h3>
+                </Grid>
+
+                {cinema.lichChieuPhim.map((showtime) => {
+                  return (
+                    <Grid item xs={3} style={{ padding: '8px 0' }}>
+                      <div className={style.jss5}>
+                        <a className={style.jss6}>
+                          <Typography className={style.jss7}>{dayjs(showtime.ngayChieuGioChieu).format(
+                            "DD-MM-YYYY"
+                          )}</Typography>
+                          <Typography className={style.jss8} width='10%'> ~</Typography>
+                          <Typography className={style.jss9}>{dayjs(showtime.ngayChieuGioChieu).format(
+                            "HH:mm"
+                          )}</Typography>
+                        </a>
+                      </div>
+                    </Grid>
+                  )
+                })}
+              </Grid>
+            )
+          })}
+        </div>
+
+      </Container>
+
+    </Grid>
+
   )
 }

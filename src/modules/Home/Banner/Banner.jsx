@@ -1,23 +1,150 @@
 import { useQuery } from '@tanstack/react-query'
-import {getBanners} from '../../../apis/movieAPI'
-import React from 'react'
+import { getBanners, getMovies } from '../../../apis/movieAPI'
+import { getMovieShowtimes } from "../../../apis/cinemaAPI"
+import React, { useRef, useState } from 'react'
+import Slider from 'react-slick';
+import style from './styleBanner.module.scss'
+import { Button, ButtonBase, Container, FormControl, Grid, NativeSelect } from '@mui/material';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+
 
 export default function Banner() {
+  const [movieId, setMovieId] = useState(null);
+  const [cinemaId, setCinemaId] = useState({});
+
+  //api lấy danh sách banner
   const {
     data: banners = [],
     isLoading,
     error,
-  } = useQuery({queryKey: ['banners'], queryFn: getBanners });
+  } = useQuery({ queryKey: ['banners'], queryFn: getBanners });
 
-  // if(isLoading){
-  //   return <Loading />
-  // }
+  //api lấy danh sách phim
+  const { data: movies = [] } = useQuery({ queryKey: ['movie'], queryFn: getMovies })
+
+  //api lấy thông tin phim
+  const { data: movieShowTimes = [] } = useQuery({ queryKey: ['getMovieShowtimes', movieId], queryFn: () => getMovieShowtimes(movieId), enabled: !!movieId })
+
+
+  const cinemaSystems = movieShowTimes?.heThongRapChieu || [];
+
+  const cinemas = cinemaSystems?.map((cinemas) => {
+    return cinemas.cumRapChieu.filter((cinema) => {
+      return cinema.maCumRap === cinemaId
+    })
+  }
+  )
+
+  const handleChangeMovie = (evt) => {
+    setMovieId(evt.target.value)
+  }
+  const handleChangeCinema = (evt) => {
+    setCinemaId(evt.target.value)
+  }
+
+  const slider = useRef();
+
+  const next = () => {
+    slider.current.slickNext();
+  };
+  const previous = () => {
+    slider.current.slickPrev();
+  };
+
+  const settings = {
+    dots: true,
+    dotsClass: `${style.dotsBanner}`,
+    infinite: true,
+    autoplay: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: true,
+
+  }
 
   return (
-    <div>
-      {banners.map((banner) => {
-        return <img key={banner.maBanner} width={300} src={banner.hinhAnh}></img>
-      })}
-    </div>
+    <Container className={style.jss4} sx={{ display: { xs: 'none', sm: 'block' } }} >
+      <Slider ref={(c) => (slider.current = c)} {...settings} >
+
+        {banners.map((banner) => {
+          return <div className={style.jss0}>
+            <img key={banner.maBanner} src={banner.hinhAnh} className={style.jss7}></img>
+          </div>
+        })}
+      </Slider>
+      <div className={style.jss8}>
+        <ButtonBase className={style.jss9} onClick={previous}>
+          <span className={style.jss10}>
+            <ArrowBackIosIcon className={style.jss11} />
+          </span>
+        </ButtonBase>
+      </div>
+      <div className={style.jss12}>
+        <ButtonBase className={style.jss9} onClick={next}>
+          <span className={style.jss10}>
+            <ArrowForwardIosIcon className={style.jss11} />
+          </span>
+        </ButtonBase>
+      </div>
+      <Container className={style.jss2} sx={{ display: { xs: 'none', md: 'block' } }}>
+        <Grid container className={style.jss3}>
+          <Grid item xs={4}>
+            <div style={{ height: '100%' }}>
+              <FormControl className={style.jss5}>
+                <NativeSelect defaultValue={'phim'}
+                  className={style.jss1}
+                  onChange={handleChangeMovie}>
+                  <option>Phim</option>
+                  {movies?.map((movie) => (
+                    <option value={movie.maPhim}>{movie.tenPhim}</option>
+                  ))}
+                </NativeSelect>
+              </FormControl>
+            </div>
+          </Grid>
+          <Grid item xs={3}>
+            <div style={{ height: '100%' }}>
+              <FormControl className={style.jss5}>
+                <NativeSelect defaultValue='rap'
+                  className={style.jss1}
+                  onChange={handleChangeCinema}>
+                  <option>Rạp</option>
+                  {cinemaSystems?.map((cinemaSystem) => {
+                    const cinemas = cinemaSystem.cumRapChieu;
+                    return cinemas?.map((cinema) => {
+                      return <option value={cinema.maCumRap}>{cinema.tenCumRap}</option>
+                    })
+                  })}
+                </NativeSelect>
+              </FormControl>
+            </div>
+          </Grid>
+          <Grid item xs={3}>
+            <div style={{ height: '100%' }}>
+              <FormControl className={style.jss5}>
+                <NativeSelect defaultValue='time' className={style.jss1}>
+                  <option>Ngày giờ chiếu</option>
+                  {cinemas.map((cinema) => {
+                    return cinema.map((showtime) => {
+                      return showtime.lichChieuPhim.map((time) => {
+                        return <option>{time.ngayChieuGioChieu}</option>
+                      })
+                    })
+                  })}
+                </NativeSelect>
+              </FormControl>
+            </div>
+          </Grid>
+          <Grid item xs={2}>
+            <div style={{ height: '100%', display: 'flex', alignItems: 'center' }}>
+              <FormControl>
+                <Button variant='contained' sx={{ backgroundColor: '#fb4226', padding: '10px 20px' }} className={style.jss6}>MUA VÉ NGAY</Button>
+              </FormControl>
+            </div>
+          </Grid>
+        </Grid>
+      </Container>
+    </Container>
   )
 }

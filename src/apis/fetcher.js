@@ -8,4 +8,32 @@ const fetcher = axios.create({
     }
 });
 
+fetcher.interceptors.request.use(
+    (request) => {
+        //kiểm tra xem user đã đăng nhập hay chưa, để thêm token của user vào headers
+        const user = JSON.parse(localStorage.getItem("currentUser"));
+
+        if (user) {
+            request.headers.Authorization = `Bearer ${user.accessToken}`;
+        }
+        return request;
+    }
+)
+
+fetcher.interceptors.response.use(
+    (response) => {
+        //thay đỏi respone trước khi trả về
+        //return response.data.content
+        return response;
+    },
+    (error) => {
+        //Kiểm tra nếu lỗi là 401 => token ko hợp lệ => đăng xuất user
+        if (error.response.status === 401) {
+            localStorage.removeItem("currentUser");
+            window.location.replace("/sign-in");
+        }
+        return Promise.reject(error);
+    }
+)
+
 export default fetcher;

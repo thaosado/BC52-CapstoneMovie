@@ -3,7 +3,7 @@ import fetcher from "./fetcher"
 
 export const signin = async (payload) => {
     try {
-        const response = await fetcher.post("/QuanLysNguoiDung/DangNhap", payload);
+        const response = await fetcher.post("/QuanLyNguoiDung/DangNhap", payload);
         return response.data?.content;
     } catch (error) {
         throw error.response.data?.content;
@@ -11,7 +11,7 @@ export const signin = async (payload) => {
 }
 export const signup = async (payload) => {
     try {
-        const response = await fetcher.post("/QuanLysNguoiDung/DangKy", payload);
+        const response = await fetcher.post("/QuanLyNguoiDung/DangKy", payload);
         return response.data?.content;
     } catch (error) {
         throw error.response.data?.content;

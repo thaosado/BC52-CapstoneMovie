@@ -12,10 +12,10 @@ export async function getBanners() {
 export async function getMovies() {
     try {
         const response = await fetcher.get("/QuanLyPhim/LayDanhSachPhim", {
-        params: {
-            maNhom: "GP01",
-        }
-    })
+            params: {
+                maNhom: "GP07",
+            }
+        })
         return response.data.content
     } catch (error) {
         throw error.response.data.content;
@@ -34,3 +34,4 @@ export async function getMovieDetails(movieId) {
         throw error.response.data.content;
     }
 }
+

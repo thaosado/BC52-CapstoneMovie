@@ -1,1 +1,1 @@
-export {default} from "./Cinema"
+export { default } from "./CinemaSystems"
