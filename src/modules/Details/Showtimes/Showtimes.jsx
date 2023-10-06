@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import React, { useEffect, useState } from 'react'
 import { getMovieShowtimes } from '../../../apis/cinemaAPI';
 import dayjs from 'dayjs';
-import { Box, Container, Grid, Tab, Tabs, Typography } from '@mui/material';
+import { Container, Grid, Tab, Tabs, Typography } from '@mui/material';
 import style from './ShowtimesStyle.module.scss'
 
 export default function Showtimes({ movieId }) {

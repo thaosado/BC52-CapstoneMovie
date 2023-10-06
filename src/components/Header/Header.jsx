@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuIcon from '@mui/icons-material/Menu';
-import { AppBar, Divider, Drawer, Grid, List, ListItem, MenuItem, Toolbar, Typography } from '@mui/material';
+import { AppBar, Divider, Drawer, Grid, List, ListItem, Toolbar, Typography } from '@mui/material';
 import style from "./stylesHeader.module.scss";
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -9,10 +9,12 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { useUserContext } from '../../contexts/UserContext/UserContext';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export default function Header() {
+  const navigate = useNavigate()
   const { currentUser, handleSignout } = useUserContext();
 
   const pages = ["Lịch Chiếu", "Cụm Rạp", "Tin Tức", "Ứng Dụng"];
@@ -59,7 +61,7 @@ export default function Header() {
                 </a>
                 :
                 <a justify="flex-end" className={style.jss4} lg="6" item="true"
-                  href='/sign-in'>
+                  onClick={() => navigate("/sign-in")}>
                   <AccountCircleIcon className={style.jss5} />
                   <Typography
                     variant="h3"
