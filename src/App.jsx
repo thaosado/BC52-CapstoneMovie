@@ -8,6 +8,7 @@ import Signup from "./modules/Auth/pages/Signup/Signup";
 import UserProvider from "./contexts/UserContext/UserContext";
 import ProtectedRoute from "./routers/ProtectedRoute/ProtectedRoute";
 import AdminMovie from "./modules/AdminMovie/AdminMovie";
+import Purchase from "./modules/Purchase/Purchase";
 
 function App() {
   return (
@@ -19,8 +20,8 @@ function App() {
             <Route path="movies/:movieId" element={<Details />} />
 
             <Route element={<ProtectedRoute />}>
-              <Route path="tickets/:showtimeId"
-                element={<div>Ticket Page</div>} />
+              <Route path="purchase/:showtimeId"
+                element={<Purchase />} />
             </Route>
 
             <Route path="/sign-in" element={<Signin />} />

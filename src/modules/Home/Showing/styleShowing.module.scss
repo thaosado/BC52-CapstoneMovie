@@ -73,6 +73,17 @@
     transition: all 0.3s;
     visibility: hidden;
     border-radius: 4px;
+    .jss11{
+        position: absolute;
+        top: '50%';
+        left: '50%';
+        transform: 'translate(-50%, -50%)';
+        width: 400;
+        background-color: #fff;
+        border: '2px solid #000';
+        box-shadow: 24;
+        padding: 4px;
+    }
     }
     .jss7{
         top: 50%;
@@ -84,6 +95,9 @@
     position: absolute;
     transform: translate(-50%,-50%);
     background: transparent;
+        &:hover{
+            opacity: 0.7;
+        }
     }
     .jss8{
         width: 100%;
@@ -109,4 +123,5 @@
     border-radius: 4px;
     text-decoration: none;
     }
+    
 }

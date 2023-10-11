@@ -133,7 +133,7 @@ export default function CinemaSystem() {
                       <div className={style.jss14}>
                         {item.lstLichChieuTheoPhim?.map((showtime) => {
                           return (
-                            <a className={style.jss15} href="">
+                            <a className={style.jss15} href={`/purchase/${showtime.maLichChieu}`}>
                               <Typography className={style.jss16}>{dayjs(showtime.ngayChieuGioChieu).format("DD-MM-YYYY")}</Typography>
                               <Typography> ~ </Typography>
                               <Typography component="h3" sx={{ color: "#fa5238" }}>{dayjs(showtime.ngayChieuGioChieu).format("HH:mm")} </Typography>

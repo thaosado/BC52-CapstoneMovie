@@ -6,15 +6,20 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./index.scss"
+import { Provider } from 'react-redux';
+import store from './store';
 
 const queryClient = new QueryClient();
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <QueryClientProvider client={queryClient}>
-    <App />
-  </QueryClientProvider>
+  <Provider store={store}>
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
+  </Provider>
+
 );
 
 // If you want to start measuring performance in your app, pass a function
