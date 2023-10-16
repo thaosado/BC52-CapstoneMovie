@@ -1,14 +1,35 @@
 import { Button, Divider } from '@mui/material';
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import style from "./TicketStyles.module.scss";
 import Swal from 'sweetalert2';
-
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { addTicket } from "../../../apis/ticketAPI";
+import { purchase } from "../../../redux/movieTicketSlice"
 
 
 export default function Ticket({ data }) {
+    const dispatch = useDispatch();
+    const queryClient = useQueryClient();
+
+    const [dataTicket, setDataTicket] = useState({});
     let { selectedSeats, totalPrice } = useSelector((state) => {
         return state.movieTicket;
+    })
+
+    const { mutate: handleBuyTicket } = useMutation({
+        mutationFn: () => addTicket(dataTicket),
+
+        onSuccess: () => {
+            Swal.fire(
+                'Đặt vé thành công!',
+                'Kiểm tra trong lịch sử đặt vé',
+                'success'
+            )
+            dispatch(purchase())
+            queryClient.invalidateQueries({ queryKey: ['seatItem'] })
+
+        }
     })
 
     const handleSwal = () => {
@@ -20,11 +41,16 @@ export default function Ticket({ data }) {
             })
             return
         }
-        Swal.fire(
-            'Đặt vé thành công!',
-            'Kiểm tra trong lịch sử đặt vé',
-            'success'
-        )
+        setDataTicket({
+            "maLichChieu": data?.thongTinPhim.maLichChieu,
+            "danhSachVe": selectedSeats.map((seat) => {
+                return ({
+                    "maGhe": seat.maGhe,
+                    "giaVe": seat.giaVe
+                })
+            })
+        })
+        handleBuyTicket()
     }
 
     return (

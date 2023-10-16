@@ -4,13 +4,14 @@ const movieTicketSlice = createSlice({
     name: "movieTicket",
     initialState: {
         selectedSeats: [],
-        totalPrice: 0
+        totalPrice: 0,
     },
     reducers: {
         selectedSeat: (state, action) => {
             const { giaVe, isSelected, ...seat } = action.payload;
             if (isSelected) {
-                state.selectedSeats.push(seat)
+                const seatNew = { ...seat, giaVe: giaVe }
+                state.selectedSeats.push(seatNew)
                 state.totalPrice = state.totalPrice + giaVe
             } else {
                 state.selectedSeats = state.selectedSeats.filter((item) => {
@@ -21,9 +22,10 @@ const movieTicketSlice = createSlice({
         },
         purchase: (state, action) => {
             state.selectedSeats = [];
+            state.totalPrice = 0;
         }
     }
 })
 
-export const { selectedSeat } = movieTicketSlice.actions
+export const { selectedSeat, purchase } = movieTicketSlice.actions
 export default movieTicketSlice.reducer
