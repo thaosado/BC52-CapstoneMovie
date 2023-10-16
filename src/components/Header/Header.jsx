@@ -10,6 +10,7 @@ import '@fontsource/roboto/700.css';
 import { useUserContext } from '../../contexts/UserContext/UserContext';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 
@@ -24,7 +25,28 @@ export default function Header() {
   }
   const handleScroll = (id) => {
     const element = document.getElementById(id);
+    if (!element) {
+      return
+    }
     element.scrollIntoView({ behavior: "smooth" })
+  }
+
+  const handleSignoutSwal = () => {
+    Swal.fire({
+      title: 'Bạn có muốn đăng xuất?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Đồng ý',
+      cancelButtonText: `Hủy`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Đã đăng xuất!', '', 'success')
+        handleSignout()
+      } else if (result.isDenied) {
+        return
+      }
+    })
   }
 
   return (
@@ -34,7 +56,7 @@ export default function Header() {
           <Grid container alignItems="center">
             <Grid item xs={6} lg={3}>
               <a href="/">
-                <img src="./image/download.png" alt="" className={style.jss2} />
+                <img src="http://localhost:3000/image/download.png" alt="" className={style.jss2} />
               </a>
             </Grid>
             <Grid container item justifyContent="center" alignItems="center" sx={{ display: { xs: 'none', lg: 'flex' } }} lg={5}>
@@ -54,7 +76,7 @@ export default function Header() {
             <Grid item container justifyContent="flex-end" sx={{ display: { xs: 'none', lg: 'flex' } }} lg={4} >
               {currentUser ?
                 <a justify="flex-end" className={style.jss4} lg="6" item="true">
-                  <img src="./image/avt.jpg" className={style.jss5} />
+                  <img src="http://localhost:3000/image/avt.jpg" className={style.jss5} />
                   <Typography
                     variant="h3"
                     sx={{ fontSize: 16, fontWeight: 500 }}>{currentUser.hoTen}</Typography>
@@ -70,13 +92,12 @@ export default function Header() {
               }
               <Divider orientation='vertical' flexItem />
               {currentUser ?
-                <a justify="flex-end" className={style.jss4} lg="6" item="true"
-                  href='/'>
+                <a justify="flex-end" className={style.jss4} lg="6" item="true">
                   <LogoutIcon className={style.jss5} />
                   <Typography
                     variant="h3"
                     sx={{ fontSize: 16, fontWeight: 500 }}>
-                    <a onClick={handleSignout}>Đăng Xuất</a>
+                    <a onClick={handleSignoutSwal}>Đăng Xuất</a>
                   </Typography>
                 </a> :
                 <a justify="flex-end" className={style.jss4} lg="6" item="true"

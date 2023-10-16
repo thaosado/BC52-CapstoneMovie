@@ -9,6 +9,8 @@ import UserProvider from "./contexts/UserContext/UserContext";
 import ProtectedRoute from "./routers/ProtectedRoute/ProtectedRoute";
 import AdminMovie from "./modules/AdminMovie/AdminMovie";
 import Purchase from "./modules/Purchase/Purchase";
+import AdminLayout from "./components/layouts/AdminLayout/AdminLayout";
+import MovieShowtimes from "./modules/AdminMovie/MovieShowtimes/MovieShowtimes";
 
 function App() {
   return (
@@ -30,9 +32,10 @@ function App() {
 
 
           {/* <Route element={<AdminProtectedRoute />}> */}
-          {/* <Route path="/admin" element={<div>Admin Layout</div>}> */}
-          <Route path="/admin/movies" element={<AdminMovie />} />
-          {/* </Route> */}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route path="/admin/movies" element={<AdminMovie />} />
+            <Route path="/admin/showtimes/:movieId" element={<MovieShowtimes />} />
+          </Route>
           {/* </Route> */}
 
           <Route path="*" element={<NotFound />} />

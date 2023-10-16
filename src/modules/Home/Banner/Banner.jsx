@@ -3,15 +3,18 @@ import { getBanners, getMovies } from '../../../apis/movieAPI'
 import { getMovieShowtimes } from "../../../apis/cinemaAPI"
 import React, { useRef, useState } from 'react'
 import Slider from 'react-slick';
-import style from './styleBanner.module.scss'
+import style from './BannerStyle.module.scss'
 import { Button, ButtonBase, Container, FormControl, Grid, NativeSelect } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 export default function Banner() {
   const [movieId, setMovieId] = useState(null);
-  const [cinemaId, setCinemaId] = useState({});
+  const [cinemaId, setCinemaId] = useState(null);
+  const [showtimeId, setShowtimeId] = useState("")
 
   //api lấy danh sách banner
   const {
@@ -43,6 +46,10 @@ export default function Banner() {
     setCinemaId(evt.target.value)
   }
 
+  const handleChangeShowtimes = (evt) => {
+    setShowtimeId(evt.target.value)
+  }
+
   const slider = useRef();
 
   const next = () => {
@@ -51,6 +58,33 @@ export default function Banner() {
   const previous = () => {
     slider.current.slickPrev();
   };
+
+  const navigate = useNavigate()
+  console.log(cinemaId);
+
+  const handleBuyTicket = () => {
+    if (!movieId) {
+      Swal.fire(
+        'Bạn chưa chọn phim',
+        'Vui lòng chọn phim!',
+      )
+      return
+    } else if (!cinemaId) {
+      Swal.fire(
+        'Bạn chưa chọn rạp',
+        'Vui lòng chọn rạp!',
+      )
+      return
+    }
+    else if (!showtimeId) {
+      Swal.fire(
+        'Bạn chưa chọn ngày giờ chiếu',
+        'Vui lòng chọn ngày giờ chiếu!',
+      )
+      return
+    }
+    navigate(`/purchase/${showtimeId}`)
+  }
 
   const settings = {
     dots: true,
@@ -95,7 +129,7 @@ export default function Banner() {
                 <NativeSelect defaultValue={'phim'}
                   className={style.jss1}
                   onChange={handleChangeMovie}>
-                  <option>Phim</option>
+                  <option value={null}>Phim</option>
                   {movies?.map((movie) => (
                     <option value={movie.maPhim}>{movie.tenPhim}</option>
                   ))}
@@ -109,7 +143,7 @@ export default function Banner() {
                 <NativeSelect defaultValue='rap'
                   className={style.jss1}
                   onChange={handleChangeCinema}>
-                  <option>Rạp</option>
+                  <option value={""}>Rạp</option>
                   {cinemaSystems?.map((cinemaSystem) => {
                     const cinemas = cinemaSystem.cumRapChieu;
                     return cinemas?.map((cinema) => {
@@ -123,12 +157,13 @@ export default function Banner() {
           <Grid item xs={3}>
             <div style={{ height: '100%' }}>
               <FormControl className={style.jss5}>
-                <NativeSelect defaultValue='time' className={style.jss1}>
+                <NativeSelect defaultValue='time' className={style.jss1}
+                  onChange={handleChangeShowtimes}>
                   <option>Ngày giờ chiếu</option>
                   {cinemas.map((cinema) => {
                     return cinema.map((showtime) => {
                       return showtime.lichChieuPhim.map((time) => {
-                        return <option>{time.ngayChieuGioChieu}</option>
+                        return <option value={time.maLichChieu}>{time.ngayChieuGioChieu}</option>
                       })
                     })
                   })}
@@ -139,7 +174,7 @@ export default function Banner() {
           <Grid item xs={2}>
             <div style={{ height: '100%', display: 'flex', alignItems: 'center' }}>
               <FormControl>
-                <Button variant='contained' sx={{ backgroundColor: '#fb4226', padding: '10px 20px' }} className={style.jss6}>MUA VÉ NGAY</Button>
+                <Button variant='contained' sx={{ backgroundColor: '#fb4226', padding: '10px 20px' }} className={style.jss6} onClick={handleBuyTicket}>MUA VÉ NGAY</Button>
               </FormControl>
             </div>
           </Grid>

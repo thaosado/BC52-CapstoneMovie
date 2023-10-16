@@ -7,11 +7,12 @@ import { signin } from "../../../../apis/userAPI"
 import { Navigate, useSearchParams } from 'react-router-dom'
 import { useUserContext } from '../../../../contexts/UserContext/UserContext'
 import style from './SigninStyle.module.scss'
-import { Avatar, Container, FormControl, TextField, InputAdornment, IconButton, Checkbox, Typography, Button, ThemeProvider, OutlinedInput, InputLabel } from '@mui/material'
+import { Avatar, Container, FormControl, TextField, InputAdornment, IconButton, Checkbox, Typography, Button, ThemeProvider } from '@mui/material'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import PersonIcon from '@mui/icons-material/Person';
 import theme from '../../../../components/ChangeMui/ChangeColor.js'
+import Swal from 'sweetalert2'
 
 const signupSchema = object({
   taiKhoan: string().required("Tài khoản không được để trống"),
@@ -57,6 +58,11 @@ export default function Signin() {
   })
 
   const onSubmit = (values) => {
+    Swal.fire(
+      'Đăng nhập thành công!',
+      '',
+      'success'
+    )
     handleSignin(values);
   }
 

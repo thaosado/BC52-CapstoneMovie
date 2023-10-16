@@ -44,3 +44,24 @@ export async function addMovie(movie) {
     }
 }
 
+export async function deleteMovie(movieId) {
+    try {
+        const response = await fetcher.delete("QuanLyPhim/XoaPhim", {
+            params: {
+                MaPhim: movieId,
+            }
+        })
+        return response.data?.content
+    } catch (error) {
+        throw error.response.data.content
+    }
+}
+
+export async function addMovieShowtime(values) {
+    try {
+        const response = await fetcher.post("QuanLyDatVe/TaoLichChieu", values)
+        return response.data.content
+    } catch (error) {
+        throw error.response.data.content
+    }
+}

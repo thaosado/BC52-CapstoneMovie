@@ -34,59 +34,61 @@ export default function Showtimes({ movieId }) {
   }, [cinemaSystems])
 
   return (
-    <Grid item xs={12} className={style.jss1}>
-      <Container className={style.jss2}>
-        <Tabs orientation="vertical"
-          value={valueTabs}
-          onChange={handleChangeValueTabs}
-          aria-label="Vertical tabs example"
-          textColor="inherit"
-        >
-          {cinemaSystems.map((cinemaSystem) => {
-            return (
-              <Tab label={<div key={cinemaSystem.maHeThongRap}>
-                <img src={cinemaSystem.logo} alt="" width={50} height={50}
-                  onClick={() => handleGetCinemaSystem(cinemaSystem.maHeThongRap)} />
-              </div>} className={style.jss3} />
+    <div>
+      <Grid item xs={12} className={style.jss1} id="cinema">
+        <Container className={style.jss2} >
+          <Tabs orientation="vertical"
+            value={valueTabs}
+            onChange={handleChangeValueTabs}
+            aria-label="Vertical tabs example"
+            textColor="inherit"
+          >
+            {cinemaSystems.map((cinemaSystem) => {
+              return (
+                <Tab label={<div key={cinemaSystem.maHeThongRap}>
+                  <img src={cinemaSystem.logo} alt="" width={50} height={50}
+                    onClick={() => handleGetCinemaSystem(cinemaSystem.maHeThongRap)} />
+                </div>} className={style.jss3} />
 
-            )
-          })}
+              )
+            })}
 
-        </Tabs>
+          </Tabs>
 
-        <div className={style.jss4}>
-          {cinemas.map(cinema => {
-            return (
-              <Grid container style={{ padding: '8px 8px 0 8px' }} >
-                <Grid item xs={12} style={{ padding: '8px 0' }}>
-                  <h3 style={{ color: 'rgb(139, 195, 74)', fontSize: '16px' }}>{cinema.tenCumRap}</h3>
+          <div className={style.jss4}>
+            {cinemas.map(cinema => {
+              return (
+                <Grid container style={{ padding: '8px 8px 0 8px' }} >
+                  <Grid item xs={12} style={{ padding: '8px 0' }}>
+                    <h3 style={{ color: 'rgb(139, 195, 74)', fontSize: '16px' }}>{cinema.tenCumRap}</h3>
+                  </Grid>
+
+                  {cinema.lichChieuPhim.map((showtime) => {
+                    return (
+                      <Grid item xs={3} style={{ padding: '8px 0' }}>
+                        <div className={style.jss5}>
+                          <a className={style.jss6} href={`/purchase/${showtime.maLichChieu}`}>
+                            <Typography className={style.jss7}>{dayjs(showtime.ngayChieuGioChieu).format(
+                              "DD-MM-YYYY"
+                            )}</Typography>
+                            <Typography className={style.jss8} width='10%'> ~</Typography>
+                            <Typography className={style.jss9}>{dayjs(showtime.ngayChieuGioChieu).format(
+                              "HH:mm"
+                            )}</Typography>
+                          </a>
+                        </div>
+                      </Grid>
+                    )
+                  })}
                 </Grid>
+              )
+            })}
+          </div>
 
-                {cinema.lichChieuPhim.map((showtime) => {
-                  return (
-                    <Grid item xs={3} style={{ padding: '8px 0' }}>
-                      <div className={style.jss5}>
-                        <a className={style.jss6}>
-                          <Typography className={style.jss7}>{dayjs(showtime.ngayChieuGioChieu).format(
-                            "DD-MM-YYYY"
-                          )}</Typography>
-                          <Typography className={style.jss8} width='10%'> ~</Typography>
-                          <Typography className={style.jss9}>{dayjs(showtime.ngayChieuGioChieu).format(
-                            "HH:mm"
-                          )}</Typography>
-                        </a>
-                      </div>
-                    </Grid>
-                  )
-                })}
-              </Grid>
-            )
-          })}
-        </div>
+        </Container>
 
-      </Container>
-
-    </Grid>
+      </Grid>
+    </div>
 
   )
 }

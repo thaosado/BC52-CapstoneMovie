@@ -1,10 +1,8 @@
 .jss1{
-    margin-top: 24px;
     height: 180px;
     display: flex;
     overflow: hidden;
     flex-grow: 1;
-    margin-bottom: 40px;
     background-color: #fff;
     :global(.MuiTab-textColorPrimary.Mui-selected) {
         color: #fb4226;
@@ -24,7 +22,6 @@
     .jss4{
         width: 100%;
         display: flex;
-        margin-bottom: 32px;
         justify-content: center;
     }
     .jss5{

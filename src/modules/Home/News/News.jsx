@@ -12,26 +12,28 @@ export default function News() {
     const pages = ["Điện Ảnh 24h", "Review", "Khuyến mãi"]
 
     return (
-        <div className={style.jss1} id={2}>
-            <Container maxWidth="md" >
-
-                <Tabs centered value={value} onChange={handleChange} className={style.jss2}>
+        <div>
+            <div style={{ paddingTop: '55px' }} id={2}></div>
+            <div className={style.jss1}>
+                <Container maxWidth="md" >
+                    <Tabs centered value={value} onChange={handleChange} className={style.jss2}>
+                        {pages.map((page, index) => {
+                            return (
+                                <Tab type='button' label={page} {...a11yProps({ index })} className={style.jss3} />
+                            )
+                        })}
+                    </Tabs>
                     {pages.map((page, index) => {
                         return (
-                            <Tab type='button' label={page} {...a11yProps({ index })} className={style.jss3} />
+                            <CustomTabPanel value={value} index={index}></CustomTabPanel>
                         )
                     })}
-                </Tabs>
-                {pages.map((page, index) => {
-                    return (
-                        <CustomTabPanel value={value} index={index}></CustomTabPanel>
-                    )
-                })}
 
-                <div className={style.jss4}>
-                    <ButtonBase className={style.jss5}>XEM THÊM</ButtonBase>
-                </div>
-            </Container>
+                    <div className={style.jss4}>
+                        <ButtonBase className={style.jss5}>XEM THÊM</ButtonBase>
+                    </div>
+                </Container>
+            </div>
         </div>
     )
 }

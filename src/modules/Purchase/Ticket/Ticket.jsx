@@ -12,12 +12,13 @@ export default function Ticket({ data }) {
     })
 
     const handleSwal = () => {
-        if (selectedSeats.length < 0) {
+        if (selectedSeats.length <= 0) {
             Swal.fire({
                 icon: 'error',
                 title: 'Bạn chưa chọn ghế',
                 text: 'Vui lòng chọn ghế!',
             })
+            return
         }
         Swal.fire(
             'Đặt vé thành công!',
