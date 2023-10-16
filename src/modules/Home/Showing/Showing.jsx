@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getMovies } from '../../../apis/movieAPI';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,7 @@ import ReactPlayer from 'react-player';
 import Slider from 'react-slick';
 
 export default function Showing() {
+  const [urlTrailer, seturlTrailer] = useState("")
   const { data = [], isLoading } = useQuery({
     queryKey: ["movie"],
     queryFn: getMovies,
@@ -15,9 +16,10 @@ export default function Showing() {
 
   const navigate = useNavigate();
 
+  let trailer = "";
   const [openModal, setOpenModal] = useState(false);
-  const handleOpen = (trailer) => {
-    console.log(trailer);
+  const handleOpen = (movieTrailer) => {
+    seturlTrailer(movieTrailer);
     return setOpenModal(true)
   }
   const handleClose = () => {
@@ -25,9 +27,11 @@ export default function Showing() {
   }
 
   const styleModalVideo = {
-    width: '400px',
+    border: 'none',
+    width: '700px',
+    height: 'auto',
     top: '15%',
-    left: '20%'
+    left: '20%',
   };
 
   const settings = {
@@ -40,6 +44,21 @@ export default function Showing() {
     slidesPerRow: 4,
     dots: true,
     dotsClass: `${style.dots}`,
+    responsive: [
+      {
+        breakpoint: 1008,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          slidesPerRow: 3,
+        },
+      },
+      {
+        breakpoint: 800,
+        arrows: true,
+        settings: 'unslick',
+      },
+    ]
   };
 
   return (
@@ -54,10 +73,10 @@ export default function Showing() {
                     <div style={{ margin: '10px' }}>
                       <a className={style.jss1}>
                         <Grid xs={12}>
-                          <Grid container xs={4} sm={12} style={{ backgroundImage: `url(${movie.hinhAnh})` }} className={style.jss2}>
+                          <Grid container style={{ backgroundImage: `url(${movie.hinhAnh})` }} className={style.jss2}>
                             <div className={style.jss6}>
                               <Button className={style.jss7}
-                                onClick={() => { handleOpen(movie) }}>
+                                onClick={() => { handleOpen(movie.trailer) }}>
                                 <span>
                                   <img src="./image/buttonvideo.png" alt="" className={style.jss8} />
                                 </span>
@@ -90,7 +109,7 @@ export default function Showing() {
         </div>
         <Modal sx={styleModalVideo} open={openModal} onClose={handleClose}>
           <div>
-            <ReactPlayer url={"https://www.youtube.com/watch?v=Rr5bP7uLnfk&list=RDRr5bP7uLnfk&start_radio=1"} />
+            <ReactPlayer url={`${urlTrailer}`} playing width="640px" />
           </div>
         </Modal>
       </div>

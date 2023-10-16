@@ -4,18 +4,20 @@ import { getMovieShowtimes } from "../../../apis/cinemaAPI"
 import React, { useRef, useState } from 'react'
 import Slider from 'react-slick';
 import style from './BannerStyle.module.scss'
-import { Button, ButtonBase, Container, FormControl, Grid, NativeSelect } from '@mui/material';
+import { Button, ButtonBase, Container, FormControl, Grid, Modal, NativeSelect } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import ReactPlayer from 'react-player';
 
 
 export default function Banner() {
   const [movieId, setMovieId] = useState(null);
   const [cinemaId, setCinemaId] = useState(null);
-  const [showtimeId, setShowtimeId] = useState("")
+  const [showtimeId, setShowtimeId] = useState("");
 
+  const navigate = useNavigate()
   //api lấy danh sách banner
   const {
     data: banners = [],
@@ -50,6 +52,7 @@ export default function Banner() {
     setShowtimeId(evt.target.value)
   }
 
+  //setup slider
   const slider = useRef();
 
   const next = () => {
@@ -58,9 +61,7 @@ export default function Banner() {
   const previous = () => {
     slider.current.slickPrev();
   };
-
-  const navigate = useNavigate()
-  console.log(cinemaId);
+  //-------
 
   const handleBuyTicket = () => {
     if (!movieId) {
@@ -97,16 +98,62 @@ export default function Banner() {
 
   }
 
+  //setup modal video banner
+  const [trailerMovie, setTrailerMovie] = useState("")
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleOpen = (idBanner) => {
+    if (idBanner === 1) {
+      setTrailerMovie("https://www.youtube.com/watch?v=uqJ9u7GSaYM");
+    }
+    if (idBanner === 2) {
+      setTrailerMovie("https://www.youtube.com/watch?v=QnrHVynRwTM");
+    }
+    if (idBanner === 3) {
+      setTrailerMovie("https://www.youtube.com/watch?v=3JPgwgMoMZE")
+    }
+    return setOpenModal(true)
+  }
+
+  const styleModalVideo = {
+    border: 'none',
+    width: '700px',
+    height: 'auto',
+    top: '15%',
+    left: '20%',
+  };
+
+  const handleCloseModal = () => {
+    return setOpenModal(false)
+  }
+  console.log(banners);
+
   return (
     <Container className={style.jss4} sx={{ display: { xs: 'none', sm: 'block' } }} >
       <Slider ref={(c) => (slider.current = c)} {...settings} >
 
         {banners.map((banner) => {
-          return <div className={style.jss0}>
-            <img key={banner.maBanner} src={banner.hinhAnh} className={style.jss7}></img>
-          </div>
+          return (
+            <div>
+              <div className={style.jss0}>
+                <img key={banner.maBanner} src={banner.hinhAnh} className={style.jss7} />
+                <div className={style.jss13} style={{ textAlign: 'center' }}>
+                  <Button className={style.jss14}
+                    onClick={() => { handleOpen(banner.maBanner) }}>
+                    <span>
+                      <img src="http://localhost:3000/image/buttonvideo.png" alt="" className={style.jss15} />
+                    </span>
+                  </Button>
+                </div>
+              </div>
+            </div>)
         })}
       </Slider>
+      <Modal sx={styleModalVideo} open={openModal} onClose={handleCloseModal}>
+        <div>
+          <ReactPlayer url={`${trailerMovie}`} playing width="640px" />
+        </div>
+      </Modal>
       <div className={style.jss8}>
         <ButtonBase className={style.jss9} onClick={previous}>
           <span className={style.jss10}>
