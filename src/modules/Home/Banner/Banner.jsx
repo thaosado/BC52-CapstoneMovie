@@ -117,7 +117,8 @@ export default function Banner() {
 
   const styleModalVideo = {
     border: 'none',
-    width: '700px',
+    backgroundColor: 'tranferant',
+    width: '640px',
     height: 'auto',
     top: '15%',
     left: '20%',
