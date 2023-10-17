@@ -5,9 +5,11 @@ import { useQuery } from '@tanstack/react-query';
 import { getCinemaSystems, getCinemaDetails, getShowtimes } from '../../../apis/cinemaAPI';
 import { CustomTabPanel, a11yProps } from '../../../CustomTabPanel'
 import dayjs from 'dayjs';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function CinemaSystem() {
+  const navigate = useNavigate()
   const [cinemasId, setCinemasId] = useState([]);
   const [cinemaId, setCinemaId] = useState([])
 
@@ -111,7 +113,7 @@ export default function CinemaSystem() {
                 <Typography component="h6" className={style.jss9}>
                   {cinema.diaChi}
                 </Typography>
-                <a className={style.jss10} href="">[chi tiết]</a>
+                <a className={style.jss10}>[chi tiết]</a>
               </div>} />
             )
           })}
@@ -133,7 +135,7 @@ export default function CinemaSystem() {
                       <div className={style.jss14}>
                         {item.lstLichChieuTheoPhim?.map((showtime) => {
                           return (
-                            <a className={style.jss15} href={`/purchase/${showtime.maLichChieu}`}>
+                            <a className={style.jss15} onClick={() => navigate(`/purchase/${showtime.maLichChieu}`)}>
                               <Typography className={style.jss16}>{dayjs(showtime.ngayChieuGioChieu).format("DD-MM-YYYY")}</Typography>
                               <Typography> ~ </Typography>
                               <Typography component="h3" sx={{ color: "#fa5238" }}>{dayjs(showtime.ngayChieuGioChieu).format("HH:mm")} </Typography>

@@ -55,7 +55,7 @@ export default function Header() {
         <Toolbar className={style.jss1}>
           <Grid container alignItems="center">
             <Grid item xs={6} lg={3}>
-              <a href="/">
+              <a onClick={() => { navigate("/") }}>
                 <img src="http://localhost:3000/image/download.png" alt="" className={style.jss2} />
               </a>
             </Grid>
@@ -101,7 +101,7 @@ export default function Header() {
                   </Typography>
                 </a> :
                 <a justify="flex-end" className={style.jss4} lg="6" item="true"
-                  href='/sign-up'>
+                  onClick={() => { navigate("/sign-up") }}>
                   <AccountCircleIcon className={style.jss5} />
                   <Typography
                     variant="h3"

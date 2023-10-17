@@ -94,7 +94,7 @@ export default function Showing() {
                               </div>
                             </div>
                             <div>
-                              <a href={(`/movies/${movie.maPhim}`)} className={style.jss10}>Mua Vé</a>
+                              <a onClick={() => navigate(`/movies/${movie.maPhim}`)} className={style.jss10}>Mua Vé</a>
                             </div>
                           </Grid>
                         </Grid>

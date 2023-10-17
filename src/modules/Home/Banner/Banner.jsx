@@ -126,7 +126,7 @@ export default function Banner() {
   const handleCloseModal = () => {
     return setOpenModal(false)
   }
-  console.log(banners);
+
 
   return (
     <Container className={style.jss4} sx={{ display: { xs: 'none', sm: 'block' } }} >
