@@ -69,8 +69,6 @@ export default function AddMovie({ handleCloseModalAddMovie }) {
             )
             handleCloseModalAddMovie();
             dispatch(getMovieList({}))
-            //đóng modal
-            //sử dụng querryClient.invalidateQueries để gọi lại API get ds phim
         }
     })
 

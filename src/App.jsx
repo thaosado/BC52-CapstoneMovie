@@ -11,6 +11,8 @@ import AdminMovie from "./modules/AdminMovie/AdminMovie";
 import Purchase from "./modules/Purchase/Purchase";
 import AdminLayout from "./components/layouts/AdminLayout/AdminLayout";
 import MovieShowtimes from "./modules/AdminMovie/MovieShowtimes/MovieShowtimes";
+import AdminUser from "./modules/AdminUser/AdminUser";
+import AdminProtextedRoute from "./routers/AdminProtectedRoute";
 
 function App() {
   return (
@@ -31,12 +33,13 @@ function App() {
           </Route>
 
 
-          {/* <Route element={<AdminProtectedRoute />}> */}
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route path="/admin/movies" element={<AdminMovie />} />
-            <Route path="/admin/showtimes/:movieId" element={<MovieShowtimes />} />
+          <Route element={<AdminProtextedRoute />}>
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route path="/admin/movies" element={<AdminMovie />} />
+              <Route path="/admin/showtimes/:movieId" element={<MovieShowtimes />} />
+              <Route path="/admin/users" element={<AdminUser />} />
+            </Route>
           </Route>
-          {/* </Route> */}
 
           <Route path="*" element={<NotFound />} />
         </Routes>

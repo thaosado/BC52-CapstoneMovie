@@ -13,7 +13,7 @@ export default function MovieProfile({ movieId }) {
   })
 
   const handleScroll = () => {
-    const element = document.getElementById('cinema');
+    const element = document.getElementById('showtimes');
     element.scrollIntoView({ behavior: 'smooth' })
   }
 

@@ -2,8 +2,20 @@ import { Container, Grid, Typography } from '@mui/material'
 import React from 'react'
 import style from "./FooterStyle.module.scss"
 import dataIcon from "./dataIcon.json";
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import { useNavigate } from 'react-router-dom';
+import { useUserContext } from '../../../contexts/UserContext/UserContext';
 
 export default function Footer() {
+    // const {currentUser} = useUserContext();
+
+    // const handleGoToAdminPage = () =>{
+    //     if(!currentUser){
+    //         return navigate("/sign-in")
+    //     }
+    //     if(currentUser && currentUser.quan)
+    // }
+    const navigate = useNavigate()
     return (
         <footer className={style.jss1}>
             <Container maxWidth="md">
@@ -17,6 +29,10 @@ export default function Footer() {
                                 <Grid item xs={6}><a className={style.jss4}>Brand Guidelines</a></Grid>
                                 <Grid item xs={6}><a className={style.jss4}>Chính sách bảo mật</a></Grid>
                             </Grid>
+                            <a onClick={() => navigate("/admin")} style={{ display: 'flex', alignItems: 'center', marginTop: '50px' }}>
+                                <AdminPanelSettingsIcon />
+                                <h6 className={style.jss3}>CHUYỂN ĐẾN TRANG ADMIN</h6>
+                            </a>
                         </Typography>
                     </Grid>
                     <Grid item xs={4}>

@@ -127,7 +127,12 @@
     visibility: hidden;
     font-weight: 500;
     border-radius: 4px;
-    text-decoration: none;   }
+    text-decoration: none;
+    cursor: pointer;
+    &:hover{
+        background:#fb4226
+    }
+}
     
     .dots{
         margin-top: 20px;

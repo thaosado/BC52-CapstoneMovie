@@ -35,7 +35,8 @@ export default function Showtimes({ movieId }) {
 
   return (
     <div>
-      <Grid item xs={12} className={style.jss1} id="cinema">
+      <Grid item xs={12} className={style.jss1}>
+        <div style={{ padding: '25px' }} id="showtimes"></div>
         <Container className={style.jss2} >
           <Tabs orientation="vertical"
             value={valueTabs}
@@ -87,8 +88,8 @@ export default function Showtimes({ movieId }) {
 
         </Container>
 
-      </Grid>
-    </div>
+      </Grid >
+    </div >
 
   )
 }

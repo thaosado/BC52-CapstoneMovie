@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { object, string } from "yup"
 import { useMutation } from '@tanstack/react-query'
 import { signin } from "../../../../apis/userAPI"
-import { Navigate, useSearchParams } from 'react-router-dom'
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 import { useUserContext } from '../../../../contexts/UserContext/UserContext'
 import style from './SigninStyle.module.scss'
 import { Avatar, Container, FormControl, TextField, InputAdornment, IconButton, Checkbox, Typography, Button, ThemeProvider } from '@mui/material'
@@ -25,6 +25,7 @@ const signupSchema = object({
 })
 
 export default function Signin() {
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
 
   const handleClickShowPassword = () => {
@@ -117,7 +118,7 @@ export default function Signin() {
           </form>
 
           <div style={{ textAlign: 'end', padding: '10px 0' }}>
-            <a href="/sign-up">
+            <a onClick={() => { navigate("/sign-up") }}>
               <h4>Bạn chưa có tài khoản? Đăng ký</h4>
             </a>
           </div>

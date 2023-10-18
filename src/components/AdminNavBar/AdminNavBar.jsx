@@ -11,9 +11,13 @@ import { Divider } from '@mui/material';
 
 export default function AdminNavBar() {
     const [showMovieTab, setShowMovieTab] = useState(false)
+    const [showUserTab, setShowUserTab] = useState(false)
 
     const handleShowMovieTab = () => {
         return setShowMovieTab(!showMovieTab);
+    }
+    const handleShowUserTab = () => {
+        return setShowUserTab(!showUserTab)
     }
 
     const navigate = useNavigate()
@@ -35,8 +39,11 @@ export default function AdminNavBar() {
 
                 <div className={style.jss2}>
                     <PersonOutlineIcon />
-                    <a>Quản lý người dùng</a>
+                    <a onClick={handleShowUserTab}>Quản lý người dùng</a>
                     <KeyboardArrowDownIcon />
+                </div>
+                <div className={style.jss4} hidden={!showUserTab} id='user'>
+                    <a onClick={() => navigate("/admin/users")}>Danh sách người dùng</a>
                 </div>
                 <div className={style.jss2}>
                     <MovieIcon />

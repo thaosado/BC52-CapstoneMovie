@@ -18,10 +18,44 @@ export const signup = async (payload) => {
     }
 }
 
-export const getUserList = async () => {
+export const getUserList = async (page) => {
     try {
-        const response = await fetcher.get("/QuanLyNguoiDung/LayDanhSachNguoiDungPhanTrang");
+        const response = await fetcher.get("/QuanLyNguoiDung/LayDanhSachNguoiDungPhanTrang", {
+            params: {
+                soTrang: page,
+                MaNhom: "GP07",
+                soPhanTuTrenTrang: 5,
+            }
+        });
         return response.data?.content
+
+    } catch (error) {
+        throw error.response.data
+    }
+}
+export const addUser = async (payload) => {
+    try {
+        const response = await fetcher.post("/QuanLyNguoiDung/ThemNguoiDung", payload);
+        return response.data.content;
+    } catch (error) {
+        throw error.response.data
+    }
+}
+export const deleteUser = async (taiKhoan) => {
+    try {
+        const response = await fetcher.delete("/QuanLyNguoiDung/XoaNguoiDung", {
+            params: {
+                TaiKhoan: taiKhoan
+            }
+        })
+    } catch (error) {
+        throw error.response.data
+    }
+}
+
+export const updateUser = async (taiKhoan) => {
+    try {
+        const response = await fetcher.post("/QuanLyNguoiDung/CapNhatThongTinNguoiDung", taiKhoan)
 
     } catch (error) {
         throw error.response.data
