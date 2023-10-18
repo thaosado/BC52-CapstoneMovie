@@ -29,7 +29,7 @@ export default function Footer() {
                                 <Grid item xs={6}><a className={style.jss4}>Brand Guidelines</a></Grid>
                                 <Grid item xs={6}><a className={style.jss4}>Chính sách bảo mật</a></Grid>
                             </Grid>
-                            <a onClick={() => navigate("/admin")} style={{ display: 'flex', alignItems: 'center', marginTop: '50px' }}>
+                            <a onClick={() => navigate("/admin")} className={style.jss10}>
                                 <AdminPanelSettingsIcon />
                                 <h6 className={style.jss3}>CHUYỂN ĐẾN TRANG ADMIN</h6>
                             </a>

@@ -24,7 +24,7 @@ export const getUserList = async (page) => {
             params: {
                 soTrang: page,
                 MaNhom: "GP07",
-                soPhanTuTrenTrang: 5,
+                soPhanTuTrenTrang: 3,
             }
         });
         return response.data?.content

@@ -106,7 +106,7 @@ export default function AdminUser() {
                     <Button style={{ color: 'white' }} onClick={handleOpenAddUser}>THÊM NGƯỜI DÙNG</Button>
                 </div>
             </div>
-            <div style={{ height: 400, maxWidth: '100%' }}>
+            <div style={{ height: "100%", maxWidth: '100%' }}>
                 <TableContainer>
                     <Table sx={{ width: 500 }} aria-label="simple table">
                         <TableHead>

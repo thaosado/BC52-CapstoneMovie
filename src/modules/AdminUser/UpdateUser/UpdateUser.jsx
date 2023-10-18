@@ -66,7 +66,7 @@ export default function UpdateUser({ item, handleCloseUpdateUser }) {
                     <TextField error={errors.soDt} label="Số điện thoại" className={style.jss2} variant="standard" {...register("soDt")} helperText={errors.soDt?.message} />
                 </div>
                 <div style={{ display: 'flex' }}>
-                    <TextField error={errors.maLoaiNguoiDung} label="Mã loại người dùng" className={style.jss2} variant="standard" {...register("maLoaiNguoiDung")} helperText={errors.maLoaiNguoiDung?.message} />
+                    <TextField error={errors.maLoaiNguoiDung} label="Mã loại (KhachHang hoặc QuanTri)" className={style.jss2} variant="standard" {...register("maLoaiNguoiDung")} helperText={errors.maLoaiNguoiDung?.message} />
                     <Button type='submit' className={style.jss3}>CẬP NHẬT</Button>
                 </div>
             </form>

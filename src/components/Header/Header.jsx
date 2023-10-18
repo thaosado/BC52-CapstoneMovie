@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar, Divider, Drawer, Grid, List, ListItem, Toolbar, Typography } from '@mui/material';
-import style from "./stylesHeader.module.scss";
+import style from "./HeaderStyle.module.scss";
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -33,13 +33,12 @@ export default function Header() {
 
   const handleSignoutSwal = () => {
     Swal.fire({
-      title: 'Bạn có muốn đăng xuất?',
+      title: 'Bạn muốn đăng xuất?',
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Đồng ý',
       cancelButtonText: `Hủy`,
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         Swal.fire('Đã đăng xuất!', '', 'success')
         handleSignout()
@@ -75,14 +74,14 @@ export default function Header() {
 
             <Grid item container justifyContent="flex-end" sx={{ display: { xs: 'none', lg: 'flex' } }} lg={4} >
               {currentUser ?
-                <a justify="flex-end" className={style.jss4} lg="6" item="true">
+                <a className={style.jss4} lg="6" item="true">
                   <img src="http://localhost:3000/image/avt.jpg" className={style.jss5} />
                   <Typography
                     variant="h3"
                     sx={{ fontSize: 16, fontWeight: 500 }}>{currentUser.hoTen}</Typography>
                 </a>
                 :
-                <a justify="flex-end" className={style.jss4} lg="6" item="true"
+                <a className={style.jss4} lg="6" item="true"
                   onClick={() => navigate("/sign-in")}>
                   <AccountCircleIcon className={style.jss5} />
                   <Typography
@@ -92,7 +91,7 @@ export default function Header() {
               }
               <Divider orientation='vertical' flexItem />
               {currentUser ?
-                <a justify="flex-end" className={style.jss4} lg="6" item="true">
+                <a className={style.jss4} lg="6" item="true">
                   <LogoutIcon className={style.jss5} />
                   <Typography
                     variant="h3"
@@ -100,7 +99,7 @@ export default function Header() {
                     <a onClick={handleSignoutSwal}>Đăng Xuất</a>
                   </Typography>
                 </a> :
-                <a justify="flex-end" className={style.jss4} lg="6" item="true"
+                <a className={style.jss4} lg="6" item="true"
                   onClick={() => { navigate("/sign-up") }}>
                   <AccountCircleIcon className={style.jss5} />
                   <Typography

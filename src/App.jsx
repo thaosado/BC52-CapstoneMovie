@@ -13,6 +13,7 @@ import AdminLayout from "./components/layouts/AdminLayout/AdminLayout";
 import MovieShowtimes from "./modules/AdminMovie/MovieShowtimes/MovieShowtimes";
 import AdminUser from "./modules/AdminUser/AdminUser";
 import AdminProtextedRoute from "./routers/AdminProtectedRoute";
+import AdminHome from "./modules/AdminHome";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
 
           <Route element={<AdminProtextedRoute />}>
             <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<AdminHome />} />
               <Route path="/admin/movies" element={<AdminMovie />} />
               <Route path="/admin/showtimes/:movieId" element={<MovieShowtimes />} />
               <Route path="/admin/users" element={<AdminUser />} />

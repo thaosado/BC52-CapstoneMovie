@@ -7,7 +7,6 @@ import MovieIcon from '@mui/icons-material/Movie';
 import DomainIcon from '@mui/icons-material/Domain';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useNavigate } from 'react-router-dom';
-import { Divider } from '@mui/material';
 
 export default function AdminNavBar() {
     const [showMovieTab, setShowMovieTab] = useState(false)
@@ -23,8 +22,8 @@ export default function AdminNavBar() {
     const navigate = useNavigate()
     return (
         <div className={style.jss1}>
-            <div >
-                <div className={style.jss2} style={{ opacity: "0.7", marginBottom: '10px' }}>
+            <div>
+                <div className={style.jss2} style={{ opacity: "0.7", marginBottom: '40px' }}>
                     <AdminPanelSettingsIcon fontSize='large' />
                     <h4>ADMIN MANAGER</h4>
                 </div>

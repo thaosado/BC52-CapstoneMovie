@@ -104,7 +104,7 @@ export default function AdminMovie() {
 
     return (
         <div className={style.jss1}>
-            <Container>
+            <div style={{ paddingLeft: '10px' }}>
                 <div className={style.jss11}>
                     <input className={style.jss12} onChange={handleChangeSearchTerm} type="text" placeholder='Tìm kiếm phim...' />
                 </div>
@@ -154,7 +154,7 @@ export default function AdminMovie() {
                         return <Button id={index} className={style.jss9} onClick={() => handleChangePage(page)}>{page}</Button>
                     })}</div>
                 </div>
-            </Container>
+            </div>
         </div>
     )
 }
