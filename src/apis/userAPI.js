@@ -18,12 +18,26 @@ export const signup = async (payload) => {
     }
 }
 
+export const getUserInfor = async (taiKhoan) => {
+    try {
+        const response = await fetcher.get("/QuanLyNguoiDung/LayDanhSachNguoiDungPhanTrang", {
+            params: {
+                tuKhoa: taiKhoan,
+                MaNhom: "GP06",
+            }
+        });
+        return response.data?.content
+
+    } catch (error) {
+        throw error.response.data
+    }
+}
 export const getUserList = async (page) => {
     try {
         const response = await fetcher.get("/QuanLyNguoiDung/LayDanhSachNguoiDungPhanTrang", {
             params: {
                 soTrang: page,
-                MaNhom: "GP07",
+                MaNhom: "GP06",
                 soPhanTuTrenTrang: 3,
             }
         });
@@ -56,7 +70,32 @@ export const deleteUser = async (taiKhoan) => {
 export const updateUser = async (taiKhoan) => {
     try {
         const response = await fetcher.post("/QuanLyNguoiDung/CapNhatThongTinNguoiDung", taiKhoan)
+        return response.data.content
+    } catch (error) {
+        throw error.response.data
+    }
+}
 
+export const updateUserInfor = async (taiKhoan) => {
+    try {
+        const response = await fetcher.put("/QuanLyNguoiDung/CapNhatThongTinNguoiDung", taiKhoan)
+        return response.data.content
+    } catch (error) {
+        throw error.response.data
+    }
+}
+
+export const searchUserList = async (searchTerm, page) => {
+    try {
+        const response = await fetcher.get("QuanLyNguoiDung/TimKiemNguoiDungPhanTrang", {
+            params: {
+                soTrang: page,
+                MaNhom: "GP06",
+                tuKhoa: searchTerm,
+                soPhanTuTrenTrang: 3
+            }
+        })
+        return response.data.content
     } catch (error) {
         throw error.response.data
     }

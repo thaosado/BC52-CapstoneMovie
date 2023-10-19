@@ -33,6 +33,15 @@ export default function Showtimes({ movieId }) {
     }
   }, [cinemaSystems])
 
+  if (cinemaSystems?.length === 0) {
+    return (
+      <div className={style.jss1}>
+        <div style={{ textAlign: 'center', marginTop: '100px', color: 'grey' }}>
+          <h1>Chưa có lịch chiếu cho phim này</h1>
+        </div>
+      </div>
+    )
+  }
   return (
     <div>
       <Grid item xs={12} className={style.jss1}>

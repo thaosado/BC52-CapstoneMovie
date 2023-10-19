@@ -47,6 +47,7 @@ export default function Header() {
       }
     })
   }
+  console.log(currentUser);
 
   return (
     <div>
@@ -74,7 +75,7 @@ export default function Header() {
 
             <Grid item container justifyContent="flex-end" sx={{ display: { xs: 'none', lg: 'flex' } }} lg={4} >
               {currentUser ?
-                <a className={style.jss4} lg="6" item="true">
+                <a className={style.jss4} lg="6" item="true" onClick={() => navigate("/account")}>
                   <img src="http://localhost:3000/image/avt.jpg" className={style.jss5} />
                   <Typography
                     variant="h3"

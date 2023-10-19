@@ -65,3 +65,12 @@ export async function addMovieShowtime(values) {
         throw error.response.data.content
     }
 }
+
+export async function updateMovie(values) {
+    try {
+        const response = await fetcher.post("QuanLyPhim/CapNhatPhimUpload", values)
+        return response.data?.content
+    } catch (error) {
+        throw error.response.data.content
+    }
+}

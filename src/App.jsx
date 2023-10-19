@@ -14,6 +14,8 @@ import MovieShowtimes from "./modules/AdminMovie/MovieShowtimes/MovieShowtimes";
 import AdminUser from "./modules/AdminUser/AdminUser";
 import AdminProtextedRoute from "./routers/AdminProtectedRoute";
 import AdminHome from "./modules/AdminHome";
+import Loading from "./components/Loading/Loading";
+import UserInfor from "./modules/Home/UserInfor/UserInfor";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Routes>
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Home />} />
+            <Route path="/test" element={<Loading />} />
+            <Route path="/account" element={<UserInfor />} />
             <Route path="movies/:movieId" element={<Details />} />
 
             <Route element={<ProtectedRoute />}>

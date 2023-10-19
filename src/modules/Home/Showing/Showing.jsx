@@ -55,7 +55,7 @@ export default function Showing() {
         },
       },
       {
-        breakpoint: 800,
+        breakpoint: 600,
         arrows: true,
         settings: 'unslick',
       },
@@ -73,8 +73,8 @@ export default function Showing() {
                   <div>
                     <div style={{ margin: '10px' }}>
                       <a className={style.jss1}>
-                        <Grid xs={12}>
-                          <Grid container style={{ backgroundImage: `url(${movie.hinhAnh})` }} className={style.jss2}>
+                        <Grid container spacing={{ xs: 2, sm: 0 }}>
+                          <Grid item xs={4} sm={12} style={{ backgroundImage: `url(${movie.hinhAnh})` }} className={style.jss2}>
                             <div className={style.jss6}>
                               <Button className={style.jss7}
                                 onClick={() => { handleOpen(movie.trailer) }}>
@@ -84,7 +84,7 @@ export default function Showing() {
                               </Button>
                             </div>
                           </Grid>
-                          <Grid container xs={8} sm={12} className={style.jss9}>
+                          <Grid item xs={8} sm={12} className={style.jss9}>
                             <div className={style.jss11}>
                               <div className={style.jss3}>
                                 <span className={style.jss4}>C18</span>

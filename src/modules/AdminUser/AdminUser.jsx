@@ -1,16 +1,16 @@
-import React, { useState } from 'react'
-import { DataGrid } from '@mui/x-data-grid';
+import React, { useEffect, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getUserList, deleteUser } from '../../apis/userAPI'
-import { Button, Modal, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
+import { getUserList, deleteUser, searchUserList } from '../../apis/userAPI'
+import { Button, InputBase, Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import style from './AdminUserStyle.module.scss'
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddUser from './AddUser/AddUser';
 import EditIcon from '@mui/icons-material/Edit';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import UpdateUser from './UpdateUser/UpdateUser';
+import SearchIcon from '@mui/icons-material/Search';
 
 
 const columns = [
@@ -33,7 +33,7 @@ const styleModal = {
 };
 
 export default function AdminUser() {
-    const [page, setPage] = useState();
+    const [searchTerm, setSearchTerm] = useState();
     const [searchParams, setSearchParams] = useSearchParams();
     const [item, setItem] = useState({})
 
@@ -44,7 +44,7 @@ export default function AdminUser() {
     const handleCloseAddUser = () => {
         return setOpenModalAddUser(false)
     }
-    console.log();
+
     const [openModalUpdateUser, setOpenModalUpdateUser] = useState(false);
     const handleOpenUpdateUser = (item) => {
         setItem(item);
@@ -83,23 +83,108 @@ export default function AdminUser() {
         })
     }
 
+    //Tìm kiếm người dùng
+    const handleSearch = (evt) => {
+        if (evt.key === "Enter") {
+            setSearchTerm(evt.target.value)
+        }
+    }
+    const { data: dataSearch } = useQuery({
+        queryKey: ['getDataSearch', searchTerm, searchParams.get('soTrang')],
+        queryFn: () => searchUserList(searchTerm, searchParams.get('soTrang')),
+    })
+
     const queryClient = useQueryClient();
     const totalPages = data?.totalPages;
+    const totalPagesSearch = dataSearch?.totalPages
     const pages = Array.from({ length: totalPages }, (_, index) => index + 1)
+    const pagesSearch = Array.from({ length: totalPagesSearch }, (_, index) => index + 1)
 
     const handleChangePage = (page) => {
-        // setPage(page)
         searchParams.set("soTrang", page);
         setSearchParams(searchParams);
 
     }
 
-    if (!data) {
-        return <div><h1>lỗi</h1></div>
+    if (searchTerm) {
+        return (
+            <div className={style.jss1}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <SearchIcon />
+                    <InputBase placeholder='Tìm kiếm người dùng...'
+                        onKeyDown={handleSearch} />
+                </div>
+                <div style={{ display: 'flex', justifyContent: "space-between" }}>
+                    <div className={style.jss2}>
+                        <AddIcon />
+                        <Button style={{ color: 'white' }} onClick={handleOpenAddUser}>THÊM NGƯỜI DÙNG</Button>
+                    </div>
+                </div>
+                <div style={{ height: "100%", maxWidth: '100%' }}>
+                    <TableContainer>
+                        <Table sx={{ width: 500 }} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    {columns.map((colum) => {
+                                        return (
+                                            <TableCell key={colum.name} width={colum.width}>{colum.name}</TableCell>
+                                        )
+                                    })}
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {dataSearch?.items.map((item, index) => {
+                                    return (
+                                        <TableRow key={index}>
+                                            <TableCell>{item.taiKhoan}</TableCell>
+                                            <TableCell>{item.matKhau}</TableCell>
+                                            <TableCell>{item.email}</TableCell>
+                                            <TableCell>{item.soDt}</TableCell>
+                                            <TableCell>{item.hoTen}</TableCell>
+                                            <TableCell>{item.maLoaiNguoiDung}</TableCell>
+                                            <TableCell>
+                                                <a className={style.jss4}
+                                                    onClick={() => { handleOpenUpdateUser(item) }}>
+                                                    <EditIcon /> Sửa
+                                                </a>
+                                                <a className={style.jss5}
+                                                    onClick={() => { handleDelete(item.taiKhoan) }}>
+                                                    <DeleteIcon /> Xóa
+                                                </a>
+                                            </TableCell>
+                                        </TableRow>
+                                    )
+                                })}
+
+                            </TableBody>
+                        </Table>
+                        <div style={{ textAlign: 'center' }}>
+                            <div style={{ margin: '5px' }}>
+                                {pagesSearch.map((page, index) => {
+                                    return <button key={index} className={style.jss6} onClick={() => handleChangePage(page)}>{page}</button>
+                                })}
+                            </div>
+                        </div>
+                    </TableContainer>
+                </div>
+
+                <Modal sx={styleModal} open={openModalAddUser} onClose={handleCloseAddUser}>
+                    <AddUser handleCloseAddUser={handleCloseAddUser} />
+                </Modal>
+                <Modal sx={styleModal} open={openModalUpdateUser} onClose={handleCloseUpdateUser}>
+                    <UpdateUser handleCloseUpdateUser={handleCloseUpdateUser} item={item} />
+                </Modal>
+            </div>
+        )
     }
 
     return (
         <div className={style.jss1}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+                <SearchIcon />
+                <InputBase placeholder='Tìm kiếm người dùng...'
+                    onKeyDown={handleSearch} />
+            </div>
             <div style={{ display: 'flex', justifyContent: "space-between" }}>
                 <div className={style.jss2}>
                     <AddIcon />
@@ -119,7 +204,7 @@ export default function AdminUser() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {data.items.map((item, index) => {
+                            {data?.items.map((item, index) => {
                                 return (
                                     <TableRow key={index}>
                                         <TableCell>{item.taiKhoan}</TableCell>

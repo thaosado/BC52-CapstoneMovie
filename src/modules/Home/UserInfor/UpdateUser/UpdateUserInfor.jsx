@@ -1,11 +1,11 @@
 import React from 'react'
 import { object, string } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import style from "../AddUser/AddUserStyle.module.scss";
+import style from "../../../AdminUser/AddUser/AddUserStyle.module.scss";
 import { Button, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateUser } from "../../../apis/userAPI"
+import { updateUserInfor } from "../../../../apis/userAPI"
 import Swal from 'sweetalert2';
 
 const addUserSchema = object({
@@ -14,19 +14,18 @@ const addUserSchema = object({
     email: string().required("Email không được để trống!"),
     soDt: string().required("Số điện thoại không được để trống!"),
     hoTen: string().required("Họ tên không được để trống!"),
-    maLoaiNguoiDung: string().required("Mã loại người dùng không được để trống!"),
 })
 
-export default function UpdateUser({ item, handleCloseUpdateUser }) {
+export default function UpdateUserInfor({ accountInfor, handleCloseModal }) {
     const queryClient = useQueryClient()
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
-            "taiKhoan": item.taiKhoan,
-            "matKhau": item.matKhau,
-            "email": item.email,
-            "soDt": item.soDt,
-            "hoTen": item.hoTen,
-            "maLoaiNguoiDung": item.maLoaiNguoiDung,
+            "taiKhoan": accountInfor.taiKhoan,
+            "matKhau": accountInfor.matKhau,
+            "email": accountInfor.email,
+            "soDt": accountInfor.soDt,
+            "hoTen": accountInfor.hoTen,
+            "maLoaiNguoiDung": accountInfor.maLoaiNguoiDung,
             "maNhom": "GP07",
         },
         resolver: yupResolver(addUserSchema),
@@ -35,17 +34,16 @@ export default function UpdateUser({ item, handleCloseUpdateUser }) {
 
     const { mutate: onSubmit } = useMutation({
         mutationFn: (values) => {
-            return updateUser(values)
+            return updateUserInfor(values)
         },
         onSuccess: () => {
-            handleCloseUpdateUser()
+            handleCloseModal()
             Swal.fire(
                 'Thành Công!',
                 'Đã cập nhật thông tin người dùng',
                 'success'
             )
-            queryClient.invalidateQueries({ queryKey: ['getUserList'] })
-            queryClient.invalidateQueries({ queryKey: ['getDataSearch'] })
+            queryClient.invalidateQueries({ queryKey: ['getUserInfor'] })
         }
     })
 
@@ -66,8 +64,7 @@ export default function UpdateUser({ item, handleCloseUpdateUser }) {
                     <TextField error={errors.hoTen} label="Họ tên" className={style.jss2} variant="standard" {...register("hoTen")} helperText={errors.hoTen?.message} />
                     <TextField error={errors.soDt} label="Số điện thoại" className={style.jss2} variant="standard" {...register("soDt")} helperText={errors.soDt?.message} />
                 </div>
-                <div style={{ display: 'flex' }}>
-                    <TextField error={errors.maLoaiNguoiDung} label="Mã loại (KhachHang hoặc QuanTri)" className={style.jss2} variant="standard" {...register("maLoaiNguoiDung")} helperText={errors.maLoaiNguoiDung?.message} />
+                <div style={{ display: 'flex', margin: '20px 0', justifyContent: 'end' }}>
                     <Button type='submit' className={style.jss3}>CẬP NHẬT</Button>
                 </div>
             </form>

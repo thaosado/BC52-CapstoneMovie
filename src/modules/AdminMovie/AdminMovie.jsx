@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import AddMovie from './AddMovie/AddMovie'
+import UpdateMovie from './UpdateMovie/UpdateMovie'
 import style from './AdminMovieStyle.module.scss'
-import { Button, Container, Modal } from '@mui/material'
+import { Button, Modal } from '@mui/material'
 import { list } from './TableList'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { getMovieList } from "../../redux/movieListSlice"
 import { useMutation } from '@tanstack/react-query'
 import { deleteMovie } from "../../apis/movieAPI"
+
 import Swal from 'sweetalert2'
 
 export default function AdminMovie() {
-    const [searchTerm, setSearchTerm] = useState({
-        movieName: ""
-    })
+    const [searchTerm, setSearchTerm] = useState("")
     const [openModalAddMovie, setopenModalAddMovie] = useState(false)
+    const [openModalUpdateMovie, setopenModalUpdateMovie] = useState(false)
 
     const [searchParams, setSearchParams] = useSearchParams()
 
@@ -32,6 +33,12 @@ export default function AdminMovie() {
     }
     const handleCloseModalAddMovie = () => {
         setopenModalAddMovie(false)
+    }
+    const handleOpenModalUpdateMovie = () => {
+        setopenModalUpdateMovie(true)
+    }
+    const handleCloseModalUpdateMovie = () => {
+        setopenModalUpdateMovie(false)
     }
 
     const handleChangePage = (page) => {
@@ -98,9 +105,18 @@ export default function AdminMovie() {
     }
 
     const handleChangeSearchTerm = (evt) => {
-        setSearchTerm(evt.target.value)
+        return setSearchTerm(evt.target.value)
     }
 
+    const movieSearch = movies?.filter((movie) => {
+        if (movie.tenPhim.toLowerCase().indexOf(searchTerm)) {
+            return movie
+        }
+    })
+
+    useEffect(() => {
+        movies = movieSearch
+    }, [searchTerm])
 
     return (
         <div className={style.jss1}>
@@ -121,31 +137,36 @@ export default function AdminMovie() {
                 <div>
                     <table className={style.jss3}>
                         <thead >
-                            {list.map((item) => {
-                                return <th className={style.jss2} style={{ maxWidth: `${item.width}` }}>{item.text}</th>
-                            })}
+                            <tr>
+                                {list.map((item, index) => {
+                                    return <td key={index} className={style.jss2} style={{ maxWidth: `${item.width}` }}>{item.text}</td>
+                                })}
+                            </tr>
                         </thead>
-                        {movies?.map((movie) => {
+                        {movies?.map((movie, index) => {
                             return (
                                 <tbody>
-                                    <td>{movie.maPhim}</td>
-                                    <td>{movie.tenPhim}</td>
-                                    <td style={{ overflowWrap: 'anywhere' }}>{movie.trailer}</td>
-                                    <td>{movie.biDanh}</td>
-                                    <td><img src={movie.hinhAnh} style={{ width: '100px', height: '100px' }} alt="" /></td>
-                                    <td style={{ overflowWrap: 'inherit' }}>{movie.moTa}</td>
-                                    <td>
-                                        <button className={style.jss5}
-                                            onClick={() => {
-                                                Swal.fire({
-                                                    icon: 'error',
-                                                    title: 'Lỗi',
-                                                    text: 'Tính năng chưa cập nhật!',
-                                                })
-                                            }}>Sửa</button>
-                                        <button onClick={() => handleDeleteMovieSwal(movie.maPhim)} className={style.jss6}>Xóa</button>
-                                        <button onClick={() => handleShowShowtimes(movie.maPhim)} className={style.jss7}>Lịch Chiếu</button>
-                                    </td>
+                                    <tr key={index}>
+                                        <td>{movie.maPhim}</td>
+                                        <td>{movie.tenPhim}</td>
+                                        <td style={{ overflowWrap: 'anywhere' }}>{movie.trailer}</td>
+                                        <td>{movie.biDanh}</td>
+                                        <td><img src={movie.hinhAnh} style={{ width: '100px', height: '100px' }} alt="" /></td>
+                                        <td style={{ overflowWrap: 'inherit' }}>{movie.moTa}</td>
+                                        <td>
+                                            <button className={style.jss5}
+                                                onClick={handleOpenModalUpdateMovie}>Sửa</button>
+                                            <Modal
+                                                open={openModalUpdateMovie}
+                                                onClose={handleCloseModalUpdateMovie}>
+                                                <UpdateMovie
+                                                    movie={movie}
+                                                    handleCloseModalUpdateMovie={handleCloseModalUpdateMovie} />
+                                            </Modal>
+                                            <button onClick={() => handleDeleteMovieSwal(movie.maPhim)} className={style.jss6}>Xóa</button>
+                                            <button onClick={() => handleShowShowtimes(movie.maPhim)} className={style.jss7}>Lịch Chiếu</button>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             )
                         })}
