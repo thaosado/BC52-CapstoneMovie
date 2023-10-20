@@ -46,7 +46,7 @@ export async function addMovie(movie) {
 
 export async function deleteMovie(movieId) {
     try {
-        const response = await fetcher.delete("QuanLyPhim/XoaPhim", {
+        const response = await fetcher.delete("/QuanLyPhim/XoaPhim", {
             params: {
                 MaPhim: movieId,
             }
@@ -57,19 +57,26 @@ export async function deleteMovie(movieId) {
     }
 }
 
-export async function addMovieShowtime(values) {
+export async function updateMovie(values) {
     try {
-        const response = await fetcher.post("QuanLyDatVe/TaoLichChieu", values)
-        return response.data.content
+        const response = await fetcher.post("/QuanLyPhim/CapNhatPhimUpload", values)
+        return response.data?.content
     } catch (error) {
         throw error.response.data.content
     }
 }
 
-export async function updateMovie(values) {
+export async function getMoviesSearch(searchTerm, page) {
     try {
-        const response = await fetcher.post("QuanLyPhim/CapNhatPhimUpload", values)
-        return response.data?.content
+        const response = await fetcher.get("/QuanLyPhim/LayDanhSachPhimPhanTrang", {
+            params: {
+                soTrang: page,
+                maNhom: "GP07",
+                tenPhim: searchTerm,
+                soPhanTuTrenTrang: 3,
+            }
+        })
+        return response.data.content;
     } catch (error) {
         throw error.response.data.content
     }

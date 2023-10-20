@@ -7,8 +7,8 @@ import { list } from './TableList'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { getMovieList } from "../../redux/movieListSlice"
-import { useMutation } from '@tanstack/react-query'
-import { deleteMovie } from "../../apis/movieAPI"
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { deleteMovie, getMoviesSearch } from "../../apis/movieAPI"
 
 import Swal from 'sweetalert2'
 
@@ -46,10 +46,12 @@ export default function AdminMovie() {
         setSearchParams(searchParams)
     }
 
+
     useEffect(() => {
         dispatch(getMovieList({}))
         const page = searchParams.get("soTrang");
         dispatch(getMovieList({ page }))
+
 
     }, [searchParams])
 
@@ -104,25 +106,27 @@ export default function AdminMovie() {
         navigate(`/admin/showtimes/${movieId}`)
     }
 
-    const handleChangeSearchTerm = (evt) => {
-        return setSearchTerm(evt.target.value)
+    const handleSearch = (evt) => {
+        if (evt.key === "Enter") {
+            setSearchTerm(evt.target.value)
+        }
     }
 
-    const movieSearch = movies?.filter((movie) => {
-        if (movie.tenPhim.toLowerCase().indexOf(searchTerm)) {
-            return movie
-        }
+    const { data: moviesSearch } = useQuery({
+        queryKey: ['getMoviesSearch', searchTerm, searchParams.get('soTrang')],
+        queryFn: () => getMoviesSearch(searchTerm, searchParams.get('soTrang')),
+        enabled: !!searchTerm
     })
 
-    useEffect(() => {
-        movies = movieSearch
-    }, [searchTerm])
+    const totalPagesSearch = moviesSearch?.totalPages;
+    const pagesSearch = Array.from({ length: totalPagesSearch }, (_, index) => index + 1)
+
 
     return (
         <div className={style.jss1}>
             <div style={{ paddingLeft: '10px' }}>
                 <div className={style.jss11}>
-                    <input className={style.jss12} onChange={handleChangeSearchTerm} type="text" placeholder='Tìm kiếm phim...' />
+                    <input className={style.jss12} onKeyDown={handleSearch} type="text" placeholder='Tìm kiếm phim...' />
                 </div>
                 <div>
                     <button className={style.jss13}
@@ -143,37 +147,71 @@ export default function AdminMovie() {
                                 })}
                             </tr>
                         </thead>
-                        {movies?.map((movie, index) => {
-                            return (
-                                <tbody>
-                                    <tr key={index}>
-                                        <td>{movie.maPhim}</td>
-                                        <td>{movie.tenPhim}</td>
-                                        <td style={{ overflowWrap: 'anywhere' }}>{movie.trailer}</td>
-                                        <td>{movie.biDanh}</td>
-                                        <td><img src={movie.hinhAnh} style={{ width: '100px', height: '100px' }} alt="" /></td>
-                                        <td style={{ overflowWrap: 'inherit' }}>{movie.moTa}</td>
-                                        <td>
-                                            <button className={style.jss5}
-                                                onClick={handleOpenModalUpdateMovie}>Sửa</button>
-                                            <Modal
-                                                open={openModalUpdateMovie}
-                                                onClose={handleCloseModalUpdateMovie}>
-                                                <UpdateMovie
-                                                    movie={movie}
-                                                    handleCloseModalUpdateMovie={handleCloseModalUpdateMovie} />
-                                            </Modal>
-                                            <button onClick={() => handleDeleteMovieSwal(movie.maPhim)} className={style.jss6}>Xóa</button>
-                                            <button onClick={() => handleShowShowtimes(movie.maPhim)} className={style.jss7}>Lịch Chiếu</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            )
-                        })}
+                        {moviesSearch ?
+                            moviesSearch?.items.map((movie, index) => {
+                                return (
+                                    <tbody>
+                                        <tr key={index}>
+                                            <td>{movie.maPhim}</td>
+                                            <td>{movie.tenPhim}</td>
+                                            <td style={{ overflowWrap: 'anywhere' }}>{movie.trailer}</td>
+                                            <td>{movie.biDanh}</td>
+                                            <td><img src={movie.hinhAnh} style={{ width: '100px', height: '100px' }} alt="" /></td>
+                                            <td style={{ overflowWrap: 'inherit' }}>{movie.moTa}</td>
+                                            <td>
+                                                <button className={style.jss5}
+                                                    onClick={handleOpenModalUpdateMovie}>Sửa</button>
+                                                <Modal
+                                                    open={openModalUpdateMovie}
+                                                    onClose={handleCloseModalUpdateMovie}>
+                                                    <UpdateMovie
+                                                        movie={movie}
+                                                        handleCloseModalUpdateMovie={handleCloseModalUpdateMovie} />
+                                                </Modal>
+                                                <button onClick={() => handleDeleteMovieSwal(movie.maPhim)} className={style.jss6}>Xóa</button>
+                                                <button onClick={() => handleShowShowtimes(movie.maPhim)} className={style.jss7}>Lịch Chiếu</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                )
+                            }) :
+                            movies?.map((movie, index) => {
+                                return (
+                                    <tbody>
+                                        <tr key={index}>
+                                            <td>{movie.maPhim}</td>
+                                            <td>{movie.tenPhim}</td>
+                                            <td style={{ overflowWrap: 'anywhere' }}>{movie.trailer}</td>
+                                            <td>{movie.biDanh}</td>
+                                            <td><img src={movie.hinhAnh} style={{ width: '100px', height: '100px' }} alt="" /></td>
+                                            <td style={{ overflowWrap: 'inherit' }}>{movie.moTa}</td>
+                                            <td>
+                                                <button className={style.jss5}
+                                                    onClick={handleOpenModalUpdateMovie}>Sửa</button>
+                                                <Modal
+                                                    open={openModalUpdateMovie}
+                                                    onClose={handleCloseModalUpdateMovie}>
+                                                    <UpdateMovie
+                                                        movie={movie}
+                                                        handleCloseModalUpdateMovie={handleCloseModalUpdateMovie} />
+                                                </Modal>
+                                                <button onClick={() => handleDeleteMovieSwal(movie.maPhim)} className={style.jss6}>Xóa</button>
+                                                <button onClick={() => handleShowShowtimes(movie.maPhim)} className={style.jss7}>Lịch Chiếu</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                )
+                            })
+                        }
                     </table>
-                    <div id='button' className={style.jss8}>{pages.map((page, index) => {
-                        return <Button id={index} className={style.jss9} onClick={() => handleChangePage(page)}>{page}</Button>
-                    })}</div>
+                    <div id='button' className={style.jss8}>
+                        {moviesSearch ?
+                            pagesSearch.map((page, index) => {
+                                return <Button id={index} className={style.jss9} onClick={() => handleChangePage(page)}>{page}</Button>
+                            })
+                            : pages.map((page, index) => {
+                                return <Button id={index} className={style.jss9} onClick={() => handleChangePage(page)}>{page}</Button>
+                            })}</div>
                 </div>
             </div>
         </div>

@@ -23,7 +23,7 @@ export const getUserInfor = async (taiKhoan) => {
         const response = await fetcher.get("/QuanLyNguoiDung/LayDanhSachNguoiDungPhanTrang", {
             params: {
                 tuKhoa: taiKhoan,
-                MaNhom: "GP06",
+                MaNhom: "GP07",
             }
         });
         return response.data?.content
@@ -37,7 +37,7 @@ export const getUserList = async (page) => {
         const response = await fetcher.get("/QuanLyNguoiDung/LayDanhSachNguoiDungPhanTrang", {
             params: {
                 soTrang: page,
-                MaNhom: "GP06",
+                MaNhom: "GP07",
                 soPhanTuTrenTrang: 3,
             }
         });
@@ -90,7 +90,7 @@ export const searchUserList = async (searchTerm, page) => {
         const response = await fetcher.get("QuanLyNguoiDung/TimKiemNguoiDungPhanTrang", {
             params: {
                 soTrang: page,
-                MaNhom: "GP06",
+                MaNhom: "GP07",
                 tuKhoa: searchTerm,
                 soPhanTuTrenTrang: 3
             }

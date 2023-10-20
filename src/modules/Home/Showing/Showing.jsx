@@ -32,7 +32,7 @@ export default function Showing() {
     width: '640px',
     height: 'auto',
     top: '15%',
-    left: '20%',
+    left: '30%',
   };
 
   const settings = {

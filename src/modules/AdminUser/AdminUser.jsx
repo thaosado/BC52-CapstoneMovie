@@ -106,78 +106,6 @@ export default function AdminUser() {
 
     }
 
-    if (searchTerm) {
-        return (
-            <div className={style.jss1}>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <SearchIcon />
-                    <InputBase placeholder='Tìm kiếm người dùng...'
-                        onKeyDown={handleSearch} />
-                </div>
-                <div style={{ display: 'flex', justifyContent: "space-between" }}>
-                    <div className={style.jss2}>
-                        <AddIcon />
-                        <Button style={{ color: 'white' }} onClick={handleOpenAddUser}>THÊM NGƯỜI DÙNG</Button>
-                    </div>
-                </div>
-                <div style={{ height: "100%", maxWidth: '100%' }}>
-                    <TableContainer>
-                        <Table sx={{ width: 500 }} aria-label="simple table">
-                            <TableHead>
-                                <TableRow>
-                                    {columns.map((colum) => {
-                                        return (
-                                            <TableCell key={colum.name} width={colum.width}>{colum.name}</TableCell>
-                                        )
-                                    })}
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {dataSearch?.items.map((item, index) => {
-                                    return (
-                                        <TableRow key={index}>
-                                            <TableCell>{item.taiKhoan}</TableCell>
-                                            <TableCell>{item.matKhau}</TableCell>
-                                            <TableCell>{item.email}</TableCell>
-                                            <TableCell>{item.soDt}</TableCell>
-                                            <TableCell>{item.hoTen}</TableCell>
-                                            <TableCell>{item.maLoaiNguoiDung}</TableCell>
-                                            <TableCell>
-                                                <a className={style.jss4}
-                                                    onClick={() => { handleOpenUpdateUser(item) }}>
-                                                    <EditIcon /> Sửa
-                                                </a>
-                                                <a className={style.jss5}
-                                                    onClick={() => { handleDelete(item.taiKhoan) }}>
-                                                    <DeleteIcon /> Xóa
-                                                </a>
-                                            </TableCell>
-                                        </TableRow>
-                                    )
-                                })}
-
-                            </TableBody>
-                        </Table>
-                        <div style={{ textAlign: 'center' }}>
-                            <div style={{ margin: '5px' }}>
-                                {pagesSearch.map((page, index) => {
-                                    return <button key={index} className={style.jss6} onClick={() => handleChangePage(page)}>{page}</button>
-                                })}
-                            </div>
-                        </div>
-                    </TableContainer>
-                </div>
-
-                <Modal sx={styleModal} open={openModalAddUser} onClose={handleCloseAddUser}>
-                    <AddUser handleCloseAddUser={handleCloseAddUser} />
-                </Modal>
-                <Modal sx={styleModal} open={openModalUpdateUser} onClose={handleCloseUpdateUser}>
-                    <UpdateUser handleCloseUpdateUser={handleCloseUpdateUser} item={item} />
-                </Modal>
-            </div>
-        )
-    }
-
     return (
         <div className={style.jss1}>
             <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -204,36 +132,63 @@ export default function AdminUser() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {data?.items.map((item, index) => {
-                                return (
-                                    <TableRow key={index}>
-                                        <TableCell>{item.taiKhoan}</TableCell>
-                                        <TableCell>{item.matKhau}</TableCell>
-                                        <TableCell>{item.email}</TableCell>
-                                        <TableCell>{item.soDt}</TableCell>
-                                        <TableCell>{item.hoTen}</TableCell>
-                                        <TableCell>{item.maLoaiNguoiDung}</TableCell>
-                                        <TableCell>
-                                            <a className={style.jss4}
-                                                onClick={() => { handleOpenUpdateUser(item) }}>
-                                                <EditIcon /> Sửa
-                                            </a>
-                                            <a className={style.jss5}
-                                                onClick={() => { handleDelete(item.taiKhoan) }}>
-                                                <DeleteIcon /> Xóa
-                                            </a>
-                                        </TableCell>
-                                    </TableRow>
-                                )
-                            })}
+                            {searchTerm ?
+                                dataSearch?.items.map((item, index) => {
+                                    return (
+                                        <TableRow key={index}>
+                                            <TableCell>{item.taiKhoan}</TableCell>
+                                            <TableCell>{item.matKhau}</TableCell>
+                                            <TableCell>{item.email}</TableCell>
+                                            <TableCell>{item.soDt}</TableCell>
+                                            <TableCell>{item.hoTen}</TableCell>
+                                            <TableCell>{item.maLoaiNguoiDung}</TableCell>
+                                            <TableCell>
+                                                <a className={style.jss4}
+                                                    onClick={() => { handleOpenUpdateUser(item) }}>
+                                                    <EditIcon /> Sửa
+                                                </a>
+                                                <a className={style.jss5}
+                                                    onClick={() => { handleDelete(item.taiKhoan) }}>
+                                                    <DeleteIcon /> Xóa
+                                                </a>
+                                            </TableCell>
+                                        </TableRow>
+                                    )
+                                })
+                                : data?.items.map((item, index) => {
+                                    return (
+                                        <TableRow key={index}>
+                                            <TableCell>{item.taiKhoan}</TableCell>
+                                            <TableCell>{item.matKhau}</TableCell>
+                                            <TableCell>{item.email}</TableCell>
+                                            <TableCell>{item.soDt}</TableCell>
+                                            <TableCell>{item.hoTen}</TableCell>
+                                            <TableCell>{item.maLoaiNguoiDung}</TableCell>
+                                            <TableCell>
+                                                <a className={style.jss4}
+                                                    onClick={() => { handleOpenUpdateUser(item) }}>
+                                                    <EditIcon /> Sửa
+                                                </a>
+                                                <a className={style.jss5}
+                                                    onClick={() => { handleDelete(item.taiKhoan) }}>
+                                                    <DeleteIcon /> Xóa
+                                                </a>
+                                            </TableCell>
+                                        </TableRow>
+                                    )
+                                })}
 
                         </TableBody>
                     </Table>
                     <div style={{ textAlign: 'center' }}>
                         <div style={{ margin: '5px' }}>
-                            {pages.map((page, index) => {
-                                return <button key={index} className={style.jss6} onClick={() => handleChangePage(page)}>{page}</button>
-                            })}
+                            {searchTerm ?
+                                pagesSearch.map((page, index) => {
+                                    return <button key={index} className={style.jss6} onClick={() => handleChangePage(page)}>{page}</button>
+                                })
+                                : pages.map((page, index) => {
+                                    return <button key={index} className={style.jss6} onClick={() => handleChangePage(page)}>{page}</button>
+                                })}
                         </div>
                     </div>
                 </TableContainer>
