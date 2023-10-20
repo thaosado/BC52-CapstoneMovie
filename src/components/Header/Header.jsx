@@ -135,23 +135,45 @@ export default function Header() {
               }}>
 
               <List>
-                {[{ name: "Đăng Nhập", link: "/sign-in" }, { name: "Đăng Ký", link: "/sign-up" }].map((page) =>
-                (
-                  <ListItem sx={{ paddingTop: '15px' }}>
-                    <a className={style.jss4} onClick={() => navigate(`${page.link}`)}>
+                <ListItem sx={{ paddingTop: '15px' }}>
+                  {currentUser ?
+                    <a className={style.jss4} lg="6" item="true" onClick={() => navigate("/account")}>
+                      <img src="./image/avt.jpg" className={style.jss5} />
+                      <Typography
+                        variant="h3"
+                        sx={{ fontSize: 16, fontWeight: 500 }}>{currentUser.hoTen}</Typography>
+                    </a>
+                    :
+                    <a className={style.jss4} lg="6" item="true"
+                      onClick={() => navigate("/sign-in")}>
                       <AccountCircleIcon className={style.jss5} />
                       <Typography
                         variant="h3"
-                        sx={{
-                          fontSize: 16,
-                          fontWeight: 500,
-                          display: 'flex',
-                          justifyContent: 'flex-start'
-                        }}>{page.name}</Typography>
+                        sx={{ fontSize: 16, fontWeight: 500 }}>Đăng Nhập</Typography>
                     </a>
-                  </ListItem>
-                )
-                )}
+                  }
+                </ListItem>
+                <ListItem sx={{ paddingTop: '15px' }}>
+                  {currentUser ?
+                    <a className={style.jss4} lg="6" item="true">
+                      <LogoutIcon className={style.jss5} />
+                      <Typography
+                        variant="h3"
+                        sx={{ fontSize: 16, fontWeight: 500 }}>
+                        <a onClick={handleSignoutSwal}>Đăng Xuất</a>
+                      </Typography>
+                    </a> :
+                    <a className={style.jss4} lg="6" item="true"
+                      onClick={() => { navigate("/sign-up") }}>
+                      <AccountCircleIcon className={style.jss5} />
+                      <Typography
+                        variant="h3"
+                        sx={{ fontSize: 16, fontWeight: 500 }}>
+                        Đăng Ký
+                      </Typography>
+                    </a>}
+                </ListItem>
+
               </List>
 
               <Divider />
