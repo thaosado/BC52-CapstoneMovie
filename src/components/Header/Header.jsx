@@ -56,7 +56,7 @@ export default function Header() {
           <Grid container alignItems="center">
             <Grid item xs={6} lg={3}>
               <a onClick={() => { navigate("/") }}>
-                <img src="http://localhost:3000/image/download.png" alt="" className={style.jss2} />
+                <img src="./image/download.png" alt="" className={style.jss2} />
               </a>
             </Grid>
             <Grid container item justifyContent="center" alignItems="center" sx={{ display: { xs: 'none', lg: 'flex' } }} lg={5}>
@@ -76,7 +76,7 @@ export default function Header() {
             <Grid item container justifyContent="flex-end" sx={{ display: { xs: 'none', lg: 'flex' } }} lg={4} >
               {currentUser ?
                 <a className={style.jss4} lg="6" item="true" onClick={() => navigate("/account")}>
-                  <img src="http://localhost:3000/image/avt.jpg" className={style.jss5} />
+                  <img src="./image/avt.jpg" className={style.jss5} />
                   <Typography
                     variant="h3"
                     sx={{ fontSize: 16, fontWeight: 500 }}>{currentUser.hoTen}</Typography>

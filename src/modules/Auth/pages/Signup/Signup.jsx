@@ -137,7 +137,7 @@ export default function Signup() {
                         </FormControl>
                     </form>
                     <div style={{ textAlign: 'end', paddingBottom: '10px' }}>
-                        <a onClick={() => { navigate("/sign-in") }}>
+                        <a onClick={() => { navigate("/sign-in") }} style={{ cursor: 'pointer' }}>
                             <h4>Bạn đã có tài khoản? Đăng nhập</h4>
                         </a>
                     </div>
