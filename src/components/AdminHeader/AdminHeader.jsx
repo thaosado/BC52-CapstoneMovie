@@ -29,7 +29,7 @@ export default function AdminHeader() {
         <div className={style.jss1}>
             <div style={{ display: 'flex' }}>
                 <a className={style.jss2} lg="6" item="true">
-                    <img src="http://localhost:3000/image/avt.jpg" className={style.jss3} />
+                    <img src="./image/avt.jpg" className={style.jss3} />
                     <Typography
                         variant="h3"
                         sx={{ fontSize: 16, fontWeight: 500 }}>{currentUser.hoTen}</Typography>

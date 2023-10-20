@@ -21,18 +21,17 @@ const UpdateMovieSchema = object({
     ngayKhoiChieu: string().required("Ngày khởi chiếu không được để trống"),
 })
 
-export default function UpdateMovie({ handleCloseModalUpdateMovie, movie }) {
-    console.log(movie);
+export default function UpdateMovie({ handleCloseModalUpdateMovie, movieUpdate }) {
     const dispatch = useDispatch()
     const { register, handleSubmit, watch, formState: { errors } } = useForm({
         defaultValues: {
-            maPhim: movie.maPhim,
-            tenPhim: movie.tenPhim,
-            biDanh: movie.biDanh,
-            moTa: movie.moTa,
-            danhGia: movie.danhGia,
+            maPhim: movieUpdate.maPhim,
+            tenPhim: movieUpdate.tenPhim,
+            biDanh: movieUpdate.biDanh,
+            moTa: movieUpdate.moTa,
+            danhGia: movieUpdate.danhGia,
             hinhAnh: "",
-            trailer: movie.trailer,
+            trailer: movieUpdate.trailer,
             ngayKhoiChieu: ""
         },
         resolver: yupResolver(UpdateMovieSchema),
@@ -101,7 +100,7 @@ export default function UpdateMovie({ handleCloseModalUpdateMovie, movie }) {
                         }} className={style.jss4} label="Hình Ảnh" variant="standard" type='file' {...register("hinhAnh")}
                     />
                     <div>
-                        <img src={imgPreview ? imgPreview : movie.hinhAnh} alt="preview" width={200} height={200} />
+                        <img src={imgPreview ? imgPreview : movieUpdate.hinhAnh} alt="preview" width={200} height={200} />
                     </div>
                 </div>
                 <div>
@@ -111,7 +110,7 @@ export default function UpdateMovie({ handleCloseModalUpdateMovie, movie }) {
                 </div>
                 <div className={style.jss3} style={{ display: 'flex' }}>
                     <TextField
-                        defaultValue={movie.ngayKhoiChieu}
+                        defaultValue={movieUpdate.ngayKhoiChieu}
                         InputLabelProps={{
                             shrink: true,
                         }}

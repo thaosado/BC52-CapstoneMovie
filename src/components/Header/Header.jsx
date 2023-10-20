@@ -42,6 +42,7 @@ export default function Header() {
       if (result.isConfirmed) {
         Swal.fire('Đã đăng xuất!', '', 'success')
         handleSignout()
+        navigate("/")
       } else if (result.isDenied) {
         return
       }

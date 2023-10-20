@@ -13,6 +13,7 @@ import { deleteMovie, getMoviesSearch } from "../../apis/movieAPI"
 import Swal from 'sweetalert2'
 
 export default function AdminMovie() {
+    const [movieUpdate, setMovieUpdate] = useState("")
     const [searchTerm, setSearchTerm] = useState("")
     const [openModalAddMovie, setopenModalAddMovie] = useState(false)
     const [openModalUpdateMovie, setopenModalUpdateMovie] = useState(false)
@@ -34,8 +35,9 @@ export default function AdminMovie() {
     const handleCloseModalAddMovie = () => {
         setopenModalAddMovie(false)
     }
-    const handleOpenModalUpdateMovie = () => {
+    const handleOpenModalUpdateMovie = (movie) => {
         setopenModalUpdateMovie(true)
+        setMovieUpdate(movie)
     }
     const handleCloseModalUpdateMovie = () => {
         setopenModalUpdateMovie(false)
@@ -121,6 +123,7 @@ export default function AdminMovie() {
     const totalPagesSearch = moviesSearch?.totalPages;
     const pagesSearch = Array.from({ length: totalPagesSearch }, (_, index) => index + 1)
 
+    console.log(movieUpdate);
 
     return (
         <div className={style.jss1}>
@@ -160,12 +163,12 @@ export default function AdminMovie() {
                                             <td style={{ overflowWrap: 'inherit' }}>{movie.moTa}</td>
                                             <td>
                                                 <button className={style.jss5}
-                                                    onClick={handleOpenModalUpdateMovie}>Sửa</button>
+                                                    onClick={() => handleOpenModalUpdateMovie(movie)}>Sửa</button>
                                                 <Modal
                                                     open={openModalUpdateMovie}
                                                     onClose={handleCloseModalUpdateMovie}>
                                                     <UpdateMovie
-                                                        movie={movie}
+                                                        movieUpdate={movieUpdate}
                                                         handleCloseModalUpdateMovie={handleCloseModalUpdateMovie} />
                                                 </Modal>
                                                 <button onClick={() => handleDeleteMovieSwal(movie.maPhim)} className={style.jss6}>Xóa</button>
@@ -187,12 +190,12 @@ export default function AdminMovie() {
                                             <td style={{ overflowWrap: 'inherit' }}>{movie.moTa}</td>
                                             <td>
                                                 <button className={style.jss5}
-                                                    onClick={handleOpenModalUpdateMovie}>Sửa</button>
+                                                    onClick={() => handleOpenModalUpdateMovie(movie)}>Sửa</button>
                                                 <Modal
                                                     open={openModalUpdateMovie}
                                                     onClose={handleCloseModalUpdateMovie}>
                                                     <UpdateMovie
-                                                        movie={movie}
+                                                        movieUpdate={movieUpdate}
                                                         handleCloseModalUpdateMovie={handleCloseModalUpdateMovie} />
                                                 </Modal>
                                                 <button onClick={() => handleDeleteMovieSwal(movie.maPhim)} className={style.jss6}>Xóa</button>

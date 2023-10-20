@@ -18,7 +18,7 @@ const styleModal = {
 
 export default function UserInfor() {
     const { currentUser } = useUserContext()
-    const account = currentUser.taiKhoan;
+    const account = currentUser?.taiKhoan;
     const { data } = useQuery({
         queryKey: ['getUserInfor', account],
         queryFn: () => getUserInfor(account),
