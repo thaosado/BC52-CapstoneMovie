@@ -121,7 +121,7 @@ export default function AdminUser() {
             </div>
             <div style={{ height: "100%", maxWidth: '100%' }}>
                 <TableContainer>
-                    <Table sx={{ width: 500 }} aria-label="simple table">
+                    <Table sx={{ width: '100%' }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
                                 {columns.map((colum) => {

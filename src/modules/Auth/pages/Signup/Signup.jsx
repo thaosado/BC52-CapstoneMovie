@@ -48,6 +48,7 @@ export default function Signup() {
             nhapLaiMatKhau: "",
             email: "",
             hoTen: "",
+            maNhom: "GP07"
         },
         resolver: yupResolver(signupSchema),
         mode: 'onTouched'

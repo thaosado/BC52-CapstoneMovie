@@ -22,8 +22,8 @@ export const getUserInfor = async (taiKhoan) => {
     try {
         const response = await fetcher.get("/QuanLyNguoiDung/LayDanhSachNguoiDungPhanTrang", {
             params: {
-                tuKhoa: taiKhoan,
                 MaNhom: "GP07",
+                tuKhoa: taiKhoan,
             }
         });
         return response.data?.content

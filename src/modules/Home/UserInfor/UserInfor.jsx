@@ -34,6 +34,8 @@ export default function UserInfor() {
         return setOpenModal(false)
     }
 
+    console.log(data, account);
+
     return (
         <div className={style.jss1}>
             <Grid container >
