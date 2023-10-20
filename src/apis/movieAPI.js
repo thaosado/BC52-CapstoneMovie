@@ -13,7 +13,7 @@ export async function getMovies() {
     try {
         const response = await fetcher.get("/QuanLyPhim/LayDanhSachPhim", {
             params: {
-                maNhom: "GP07",
+                maNhom: "GP11",
             }
         })
         return response.data.content
@@ -71,7 +71,7 @@ export async function getMoviesSearch(searchTerm, page) {
         const response = await fetcher.get("/QuanLyPhim/LayDanhSachPhimPhanTrang", {
             params: {
                 soTrang: page,
-                maNhom: "GP07",
+                maNhom: "GP11",
                 tenPhim: searchTerm,
                 soPhanTuTrenTrang: 3,
             }

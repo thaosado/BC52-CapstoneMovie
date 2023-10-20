@@ -13,7 +13,8 @@ export default function Loading() {
     };
 
     return (
-        <div style={{ marginTop: '100px' }}>
+        <div style={{ marginTop: '100px', textAlign: 'center' }}>
+            <h1>LOADING...</h1>
             <Lottie
                 options={defaultOptions}
                 height={1000}

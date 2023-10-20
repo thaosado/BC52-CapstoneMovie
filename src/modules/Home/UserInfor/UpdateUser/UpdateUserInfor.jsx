@@ -20,12 +20,12 @@ export default function UpdateUserInfor({ accountInfor, handleCloseModal }) {
     const queryClient = useQueryClient()
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
-            "taiKhoan": accountInfor.taiKhoan,
-            "matKhau": accountInfor.matKhau,
-            "email": accountInfor.email,
-            "soDt": accountInfor.soDt,
-            "hoTen": accountInfor.hoTen,
-            "maLoaiNguoiDung": accountInfor.maLoaiNguoiDung,
+            "taiKhoan": accountInfor?.taiKhoan,
+            "matKhau": accountInfor?.matKhau,
+            "email": accountInfor?.email,
+            "soDt": accountInfor?.soDt,
+            "hoTen": accountInfor?.hoTen,
+            "maLoaiNguoiDung": accountInfor?.maLoaiNguoiDung,
             "maNhom": "GP07",
         },
         resolver: yupResolver(addUserSchema),
