@@ -135,10 +135,10 @@ export default function Header() {
               }}>
 
               <List>
-                {["Đăng Nhập", "Đăng Ký"].map((page) =>
+                {[{ name: "Đăng Nhập", link: "/sign-in" }, { name: "Đăng Ký", link: "/sign-up" }].map((page) =>
                 (
                   <ListItem sx={{ paddingTop: '15px' }}>
-                    <a className={style.jss4}>
+                    <a className={style.jss4} onClick={() => navigate(`${page.link}`)}>
                       <AccountCircleIcon className={style.jss5} />
                       <Typography
                         variant="h3"
@@ -147,7 +147,7 @@ export default function Header() {
                           fontWeight: 500,
                           display: 'flex',
                           justifyContent: 'flex-start'
-                        }}>{page}</Typography>
+                        }}>{page.name}</Typography>
                     </a>
                   </ListItem>
                 )
