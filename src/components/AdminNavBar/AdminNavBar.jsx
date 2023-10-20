@@ -25,7 +25,9 @@ export default function AdminNavBar() {
             <div>
                 <div className={style.jss2} style={{ opacity: "0.7", marginBottom: '40px' }}>
                     <AdminPanelSettingsIcon fontSize='large' />
-                    <h4>ADMIN MANAGER</h4>
+                    <a onClick={() => navigate("/admin")}>
+                        <h4>ADMIN MANAGER</h4>
+                    </a>
                 </div>
                 <div className={style.jss2}>
                     <LiveTvIcon />

@@ -8,7 +8,7 @@ export const getMovieList = createAsyncThunk(
             const response = await fetcher.get("/QuanLyPhim/LayDanhSachPhimPhanTrang", {
                 params: {
                     soTrang: params.page,
-                    maNhom: "GP07",
+                    maNhom: "GP11",
                     soPhanTuTrenTrang: "3"
                 }
             })

@@ -18,78 +18,81 @@ export default function Footer() {
     const navigate = useNavigate()
     return (
         <footer className={style.jss1}>
-            <Container maxWidth="md">
-                <Grid container className={style.jss2}>
-                    <Grid item xs={12} sm={4} lg={4}>
-                        <Typography>
-                            <h6 className={style.jss3}>TIX</h6>
+            <Container maxWidth="lg">
+                <div sx={{ display: { xs: 'none', lg: 'block' } }}>
+                    <Grid container className={style.jss2}>
+                        <Grid item xs={12} sm={4} lg={4}>
+                            <Typography>
+                                <h6 className={style.jss3}>TIX</h6>
+                                <Grid container>
+                                    <Grid item xs={6}><a href="" className={style.jss4}>FAQ</a></Grid>
+                                    <Grid item xs={6}><a className={style.jss4}>Thỏa thuận sử dụng</a></Grid>
+                                    <Grid item xs={6}><a className={style.jss4}>Brand Guidelines</a></Grid>
+                                    <Grid item xs={6}><a className={style.jss4}>Chính sách bảo mật</a></Grid>
+                                </Grid>
+                                <a onClick={() => navigate("/admin")} className={style.jss10}>
+                                    <AdminPanelSettingsIcon />
+                                    <h6 className={style.jss3}>CHUYỂN ĐẾN TRANG ADMIN</h6>
+                                </a>
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <Typography>
+                                <h6 className={style.jss3}>ĐỐI TÁC</h6>
+                                <Grid container>
+                                    {dataIcon.map((icon) => {
+                                        return (
+                                            <Grid item xs={3} className={style.jss5}>
+                                                <a href={icon.link}>
+                                                    <img src={icon.logo} alt="" className={style.jss6} />
+                                                </a>
+                                            </Grid>
+                                        )
+                                    })}
+                                </Grid>
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={4}>
                             <Grid container>
-                                <Grid item xs={6}><a href="" className={style.jss4}>FAQ</a></Grid>
-                                <Grid item xs={6}><a className={style.jss4}>Thỏa thuận sử dụng</a></Grid>
-                                <Grid item xs={6}><a className={style.jss4}>Brand Guidelines</a></Grid>
-                                <Grid item xs={6}><a className={style.jss4}>Chính sách bảo mật</a></Grid>
-                            </Grid>
-                            <a onClick={() => navigate("/admin")} className={style.jss10}>
-                                <AdminPanelSettingsIcon />
-                                <h6 className={style.jss3}>CHUYỂN ĐẾN TRANG ADMIN</h6>
-                            </a>
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Typography>
-                            <h6 className={style.jss3}>ĐỐI TÁC</h6>
-                            <Grid container>
-                                {dataIcon.map((icon) => {
-                                    return (
-                                        <Grid item xs={3} className={style.jss5}>
-                                            <a href={icon.link}>
-                                                <img src={icon.logo} alt="" className={style.jss6} />
-                                            </a>
+                                <Grid item xs={6}>
+                                    <Typography>
+                                        <h6 className={style.jss3}>MOBILE APP</h6>
+                                        <Grid container>
+                                            <Grid item xs={3}>
+                                                <a href="https://apps.apple.com/vn/app/tix-%C4%91%E1%BA%B7t-v%C3%A9-nhanh-nh%E1%BA%A5t/id615186197">
+                                                    <img src="./image/appleicon.png" alt="" className={style.jss7} />
+                                                </a>
+                                            </Grid>
+                                            <Grid item xs={3}>
+                                                <a href="https://play.google.com/store/apps/details?id=vn.com.vng.phim123">
+                                                    <img src="./image/androiicon.png" alt="" className={style.jss7} />
+                                                </a>
+                                            </Grid>
                                         </Grid>
-                                    )
-                                })}
-                            </Grid>
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Grid container>
-                            <Grid item xs={6}>
-                                <Typography>
-                                    <h6 className={style.jss3}>MOBILE APP</h6>
-                                    <Grid container>
-                                        <Grid item xs={3}>
-                                            <a href="https://apps.apple.com/vn/app/tix-%C4%91%E1%BA%B7t-v%C3%A9-nhanh-nh%E1%BA%A5t/id615186197">
-                                                <img src="./image/appleicon.png" alt="" className={style.jss7} />
-                                            </a>
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Typography>
+                                        <h6 className={style.jss3}>SOCIAL</h6>
+                                        <Grid container>
+                                            <Grid item xs={3}>
+                                                <a href="https://facebook.com">
+                                                    <img src="./image/fbicon.png" alt="" className={style.jss7} />
+                                                </a>
+                                            </Grid>
+                                            <Grid item xs={3}>
+                                                <a href="https://zalo.com">
+                                                    <img src="./image/zaloicon.png" alt="" className={style.jss7} />
+                                                </a>
+                                            </Grid>
                                         </Grid>
-                                        <Grid item xs={3}>
-                                            <a href="https://play.google.com/store/apps/details?id=vn.com.vng.phim123">
-                                                <img src="./image/androiicon.png" alt="" className={style.jss7} />
-                                            </a>
-                                        </Grid>
-                                    </Grid>
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Typography>
-                                    <h6 className={style.jss3}>SOCIAL</h6>
-                                    <Grid container>
-                                        <Grid item xs={3}>
-                                            <a href="https://facebook.com">
-                                                <img src="./image/fbicon.png" alt="" className={style.jss7} />
-                                            </a>
-                                        </Grid>
-                                        <Grid item xs={3}>
-                                            <a href="https://zalo.com">
-                                                <img src="./image/zaloicon.png" alt="" className={style.jss7} />
-                                            </a>
-                                        </Grid>
-                                    </Grid>
-                                </Typography>
+                                    </Typography>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
+                </div>
+
                 <hr />
                 <Typography>
                     <Grid container>
