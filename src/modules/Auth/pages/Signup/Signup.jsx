@@ -85,7 +85,7 @@ export default function Signup() {
                                 {errors.taiKhoan && <p style={{ color: '#fb4226' }}>{errors.taiKhoan.message}</p>}
                             </div>
                             <div>
-                                <TextField className={errors.matKhau ? style.jss5Erorr : style.jss5} type={showPassword ? 'password' : 'text'} label='Mật Khẩu *' {...register("matKhau")} InputProps={{
+                                <TextField className={errors.matKhau ? style.jss5Erorr : style.jss5} type={showPassword ? 'text' : 'password'} label='Mật Khẩu *' {...register("matKhau")} InputProps={{
                                     endAdornment:
                                         (<InputAdornment position="end">
                                             <IconButton
@@ -93,7 +93,7 @@ export default function Signup() {
                                                 onMouseDown={handleMouseDownPassword}
                                                 edge="end"
                                             >
-                                                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                                {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
                                             </IconButton>
                                         </InputAdornment>)
                                 }}
@@ -104,7 +104,7 @@ export default function Signup() {
                                 <TextField
                                     {...register("nhapLaiMatKhau")}
                                     className={errors.matKhau ? style.jss5Erorr : style.jss5}
-                                    type={showPassword ? 'password' : 'text'}
+                                    type={showPassword ? 'text' : 'password'}
                                     label='Nhập lại mật Khẩu *'
                                     sx={{ marginTop: '16px' }}
                                     InputProps={{
@@ -115,7 +115,7 @@ export default function Signup() {
                                                     onMouseDown={handleMouseDownPassword}
                                                     edge="end"
                                                 >
-                                                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                                    {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
                                                 </IconButton>
                                             </InputAdornment>
                                         )

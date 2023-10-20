@@ -40,6 +40,7 @@ export async function addMovie(movie) {
         const response = await fetcher.post("/QuanLyPhim/ThemPhimUploadHinh", movie)
         return response.data?.content
     } catch (error) {
+        alert(error.response.data?.content)
         throw error.response.data?.content
     }
 }
@@ -62,6 +63,7 @@ export async function updateMovie(values) {
         const response = await fetcher.post("/QuanLyPhim/CapNhatPhimUpload", values)
         return response.data?.content
     } catch (error) {
+        alert(error.response.data.content)
         throw error.response.data.content
     }
 }

@@ -52,14 +52,13 @@ export default function AddMovie({ handleCloseModalAddMovie }) {
     const { mutate: onSubmit } = useMutation({
         mutationFn: (values) => {
             const formData = new FormData();
-            formData.append("maPhim", values.maPhim)
             formData.append("tenPhim", values.tenPhim)
             formData.append("biDanh", values.biDanh)
             formData.append("moTa", values.moTa)
             formData.append("hinhAnh", hinhAnh[0])
             formData.append("trailer", values.trailer)
             formData.append("ngayKhoiChieu", values.ngayKhoiChieu)
-            formData.append("maNhom", "GP07");
+            formData.append("maNhom", "GP11");
 
             return addMovie(formData)
         },
@@ -79,7 +78,6 @@ export default function AddMovie({ handleCloseModalAddMovie }) {
             <h2 className={style.jss2}>THÊM PHIM MỚI</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className={style.jss3} style={{ display: 'flex' }}>
-                    <TextField error={errors.maPhim} className={style.jss4} label="Mã Phim" variant="standard" {...register("maPhim")} helperText={errors.maPhim?.message} />
 
                     <TextField error={errors.tenPhim} className={style.jss4} label="Tên Phim" variant="standard" {...register("tenPhim")} helperText={errors.tenPhim?.message} />
 

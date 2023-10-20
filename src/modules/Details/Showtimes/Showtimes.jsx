@@ -4,8 +4,10 @@ import { getMovieShowtimes } from '../../../apis/cinemaAPI';
 import dayjs from 'dayjs';
 import { Container, Grid, Tab, Tabs, Typography } from '@mui/material';
 import style from './ShowtimesStyle.module.scss'
+import { useNavigate } from 'react-router-dom';
 
 export default function Showtimes({ movieId }) {
+  const navigate = useNavigate()
   const [cinemas, setCinemas] = useState([])
   const [valueTabs, setValueTabs] = useState(0)
 
@@ -77,7 +79,8 @@ export default function Showtimes({ movieId }) {
                     return (
                       <Grid item xs={3} style={{ padding: '8px 0' }}>
                         <div className={style.jss5}>
-                          <a className={style.jss6} href={`/purchase/${showtime.maLichChieu}`}>
+                          <a className={style.jss6}
+                            onClick={() => navigate(`/purchase/${showtime.maLichChieu}`)}>
                             <Typography className={style.jss7}>{dayjs(showtime.ngayChieuGioChieu).format(
                               "DD-MM-YYYY"
                             )}</Typography>

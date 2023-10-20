@@ -14,6 +14,7 @@ export const signup = async (payload) => {
         const response = await fetcher.post("/QuanLyNguoiDung/DangKy", payload);
         return response.data?.content;
     } catch (error) {
+        alert(error.response.data?.content)
         throw error.response.data?.content;
     }
 }
@@ -52,7 +53,8 @@ export const addUser = async (payload) => {
         const response = await fetcher.post("/QuanLyNguoiDung/ThemNguoiDung", payload);
         return response.data.content;
     } catch (error) {
-        throw error.response.data
+        alert(error.response.data.content)
+        throw error.response.data.content
     }
 }
 export const deleteUser = async (taiKhoan) => {
@@ -72,7 +74,8 @@ export const updateUser = async (taiKhoan) => {
         const response = await fetcher.post("/QuanLyNguoiDung/CapNhatThongTinNguoiDung", taiKhoan)
         return response.data.content
     } catch (error) {
-        throw error.response.data
+        alert(error.response.data.content)
+        throw error.response.data.content
     }
 }
 
@@ -81,7 +84,8 @@ export const updateUserInfor = async (taiKhoan) => {
         const response = await fetcher.put("/QuanLyNguoiDung/CapNhatThongTinNguoiDung", taiKhoan)
         return response.data.content
     } catch (error) {
-        throw error.response.data
+        alert(error.response.data.content)
+        throw error.response.data.content
     }
 }
 

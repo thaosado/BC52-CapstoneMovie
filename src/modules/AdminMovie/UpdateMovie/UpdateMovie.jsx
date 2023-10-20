@@ -12,7 +12,6 @@ import { getMovieList } from '../../../redux/movieListSlice'
 import { useDispatch } from 'react-redux'
 
 const UpdateMovieSchema = object({
-    maPhim: string().required("Mã phim không được để trống"),
     tenPhim: string().required("Tên phim không được để trống"),
     biDanh: string().required("Bí danh không được để trống"),
     moTa: string().required("Mô tả không được để trống"),
@@ -62,7 +61,7 @@ export default function UpdateMovie({ handleCloseModalUpdateMovie, movieUpdate }
             formData.append("hinhAnh", hinhAnh[0])
             formData.append("trailer", values.trailer)
             formData.append("ngayKhoiChieu", values.ngayKhoiChieu)
-            formData.append("maNhom", "GP07");
+            formData.append("maNhom", "GP11");
 
             return updateMovie(formData)
         },

@@ -52,7 +52,7 @@ export default function UpdateUserInfor({ accountInfor, handleCloseModal }) {
             <h3 style={{ textAlign: 'center' }}>CẬP NHẬT THÔNG TIN</h3>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
-                    <TextField error={errors.taiKhoan} className={style.jss2} label="Tài Khoản" variant="standard" {...register("taiKhoan")} helperText={errors.taiKhoan?.message} />
+                    <TextField error={errors.taiKhoan} className={style.jss2} label="Tài Khoản" variant="standard" {...register("taiKhoan")} helperText={errors.taiKhoan?.message} disabled />
                 </div>
                 <div>
                     <TextField error={errors.matKhau} className={style.jss2} label="Mật Khẩu" variant="standard" {...register("matKhau")} helperText={errors.matKhau?.message} />

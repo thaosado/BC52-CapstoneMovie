@@ -1,3 +1,11 @@
+# Thông tin nhóm :
+ - Đỗ Thị Thảo.
+
+# Acount Admin :
+- Tên tài khoản : adminsa
+- Mật khẩu : 123456Sa
+
+
 # Cấu trúc project
 src
 - components/:
