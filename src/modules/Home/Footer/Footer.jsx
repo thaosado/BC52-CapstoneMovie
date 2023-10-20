@@ -19,7 +19,7 @@ export default function Footer() {
     return (
         <footer className={style.jss1}>
             <Container maxWidth="lg">
-                <div sx={{ display: { xs: 'none', lg: 'block' } }}>
+                <Container sx={{ display: { xs: 'none', lg: 'block' } }}>
                     <Grid container className={style.jss2}>
                         <Grid item xs={12} sm={4} lg={4}>
                             <Typography>
@@ -91,7 +91,7 @@ export default function Footer() {
                             </Grid>
                         </Grid>
                     </Grid>
-                </div>
+                </Container>
 
                 <hr />
                 <Typography>

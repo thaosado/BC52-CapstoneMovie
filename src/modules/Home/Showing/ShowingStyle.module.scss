@@ -18,7 +18,8 @@
         }
     }
     .jss2{
-        height: 314px;
+    padding-left: 0 !important;
+    height: 314px;
     display: block;
     position: relative;
     border-radius: 4px;
@@ -64,7 +65,7 @@
     -webkit-line-clamp: 2;
     }
     .jss6{
-        top: 0;
+    top: 0;
     width: 100%;
     height: 100%;
     opacity: 0;
@@ -133,12 +134,38 @@
     &:hover{
         background:#fb4226
     }
-    @media (min-width: 599.95) {
-        .jss10{
-            visibility: visible;
-            
-        }
+    
+    .jss11{
+        color: #000;
+        height: 45px;
+        opacity: 1;
+        overflow: hidden;
+        font-size: 18px;
+        max-height: 45px;
+        visibility: visible;
+        font-weight: 600;
+        line-height: 22px;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
     }
+    .jss12{
+        top: 0;
+        left: 0;
+        color: #fff;
+        width: 100%;
+        display: block;
+        padding: 16px 8px;
+        font-size: 18px;
+        background: linear-gradient(to left,#fb4226,#ce3017 100%);
+        text-align: center;
+        font-weight: 500;
+        border-radius: 4px;
+        text-decoration: none;
+        cursor: pointer;
+        &:hover{
+            background:#fb4226
+        }}
 }
     
     .dots{

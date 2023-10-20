@@ -75,14 +75,14 @@ export default function Showing() {
                       <a className={style.jss1}>
                         <Grid container spacing={{ xs: 2, sm: 0 }}>
                           <Grid item xs={4} sm={12} style={{ backgroundImage: `url(${movie.hinhAnh})` }} className={style.jss2}>
-                            <div className={style.jss6}>
+                            <Container className={style.jss6}>
                               <Button className={style.jss7}
                                 onClick={() => { handleOpen(movie.trailer) }}>
                                 <span>
                                   <img src="./image/buttonvideo.png" alt="" className={style.jss8} />
                                 </span>
                               </Button>
-                            </div>
+                            </Container>
                           </Grid>
                           <Grid item xs={8} sm={12} className={style.jss9}>
                             <div className={style.jss11}>
@@ -95,7 +95,7 @@ export default function Showing() {
                               </div>
                             </div>
                             <div>
-                              <a onClick={() => navigate(`/movies/${movie.maPhim}`)} className={style.jss10}>Mua Vé</a>
+                              <a onClick={() => navigate(`/movies/${movie.maPhim}`)} className={style.jss10} >Mua Vé</a>
                             </div>
                           </Grid>
                         </Grid>
