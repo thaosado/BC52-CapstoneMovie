@@ -121,7 +121,7 @@ export default function Banner() {
     width: '640px',
     height: 'auto',
     top: '15%',
-    left: '20%',
+    left: '30%',
   };
 
   const handleCloseModal = () => {
@@ -142,7 +142,7 @@ export default function Banner() {
                   <Button className={style.jss14}
                     onClick={() => { handleOpen(banner.maBanner) }}>
                     <span>
-                      <img src="http://localhost:3000/image/buttonvideo.png" alt="" className={style.jss15} />
+                      <img src="./image/buttonvideo.png" alt="" className={style.jss15} />
                     </span>
                   </Button>
                 </div>
